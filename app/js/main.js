@@ -1,5 +1,11 @@
 /*global $:false, jQuery:false, document:false, window:false */
 
+var screen_width = $(document).width();
+var screen_height = $(document).height();
+var center_x = screen_width / 2;
+var center_y = screen_height / 2;
+
+
 function draw_circles(c, x, y, set_radius) {
 
 
@@ -18,7 +24,6 @@ function draw_circles(c, x, y, set_radius) {
   for (var i = 0; i < number_of_circles; i++) {
 
     var angle = starting_angle + ( step_angle * i );
-
     var px = x + ( Math.sin(angle) * set_radius );
     var py = y + ( Math.cos(angle) * set_radius );
 
@@ -33,19 +38,22 @@ function draw_circles(c, x, y, set_radius) {
 }
 
 function init_page() {
-  $('span').hide();
-  var screen_width = $(document).width();
-  var screen_height = $(document).height();
+
+  console.log(document.location.hash);
+
+  if(document.location.hash == '#/Minutes') {
+    $('div#modal').show(400);
+  }
+
+  $('<span class="left">{</span>').appendTo('body').hide();
+    $('<span class="right">}</right>').appendTo('body').hide();
   $('body').append('<canvas id="myCanvas" width="' + screen_width + '" height="' + screen_height + '" />');
 
-  var center_x = screen_width / 2;
-  var center_y = screen_height / 2;
 
   var c = $('#myCanvas')[0].getContext("2d");
 
   var logo_radius = 200;
   var logo_velocity = 20;
-
   var interval;
   var mover = 0;
 
@@ -67,7 +75,7 @@ function init_page() {
       $('span').fadeIn(700);
     }
   };
-    
+
 
 
   interval = setInterval(function() { draw(); }, 50);
@@ -82,9 +90,9 @@ function init_page() {
     if (logo_radius === 0) { 
 
       clearInterval(interval); 
-        c.strokeStyle = "rgba(0, 0, 0, 1)";
-        engine();
-        interval = setInterval(engine, 25);
+      c.strokeStyle = "rgba(0, 0, 0, 1)";
+      engine();
+      interval = setInterval(engine, 25);
 
     }
 
@@ -101,8 +109,79 @@ function init_page() {
 
 }
 
+function draw_menu_circles(x, y, set_radius) {
 
+  var menu = [
+    '&#8734',
+  '&#8734',
+  '&#8734',
+  '&#8734',
+  'Minutes',
+  '&#8734',
+  '&#8734',
+  '&#8734'];
+
+  var number_of_circles = 8;
+  var step_angle = (Math.PI * 2) / number_of_circles;
+  var starting_angle = (Math.PI * 2 / 360) * 18;
+
+  // centers of circles
+  for (var i = 0; i < number_of_circles; i++) {
+
+    var angle = starting_angle + (step_angle * i);
+
+    var px = x + (Math.sin(angle) * set_radius);
+    var py = y + (Math.cos(angle) * set_radius);
+
+    $('<a href="/#/'+menu[i]+'" class="menu-circle" id="menu-' + i + '">' + menu[i] + '</a>')
+      .css({
+        top: (center_y - 50) + 'px',
+        left: (center_x - 50) + 'px'})
+      .appendTo('body').animate({
+        top: (py - 50) + 'px',
+      left: (px - 50) + 'px',
+      opacity: 1
+      }, 1000, function () {
+        $(this).addClass('menu-circle-transition');   
+      });
+
+  }
+}
 
 init_page();
 
 
+setTimeout(function () {
+  draw_menu_circles(center_x, center_y, 175);
+}, 4000);
+
+$(window).on('hashchange', function() {
+  var state = location.hash.substring(1);
+
+  switch(state) {
+    case '/Minutes':
+      $('div#modal').show(400);
+      break;
+
+    default:  
+      $('.close').parent().hide(function() {
+        location.hash='/'; 
+      });
+  }
+});
+
+$('.close').on('click', function() {
+  $('.close').parent().hide(function() {
+    location.hash='/'; 
+  });
+});
+
+$(document).on('click', function() {
+  $('div#modal').hide(function() {
+    location.hash='/';
+  });
+});
+
+$('div#modal').on('click', function(e) {
+  e.stopProgagation();
+});
