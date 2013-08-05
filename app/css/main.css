@@ -1,3 +1,6 @@
+body {
+  overflow: hidden;
+}
 iframe {
   width:99%;
   height:99%;
