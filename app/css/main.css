@@ -4,6 +4,7 @@ body {
 iframe {
   width:99%;
   height:99%;
+  border:none;
 }
 .clearfix:before, .clearfix:after {
   content: " ";
@@ -90,4 +91,7 @@ a.menu-circle-transition:hover {
 }
 a {
     text-decoration: none;
+}
+.close {
+  cursor: pointer;
 }
