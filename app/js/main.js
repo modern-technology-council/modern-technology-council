@@ -115,7 +115,7 @@ function draw_menu_circles(x, y, set_radius) {
     '&#8734',
   '&#8734',
   '&#8734',
-  '&#8734',
+  'Tech Tax',
   'Minutes',
   '&#8734',
   '&#8734',
@@ -133,7 +133,7 @@ function draw_menu_circles(x, y, set_radius) {
     var px = x + (Math.sin(angle) * set_radius);
     var py = y + (Math.cos(angle) * set_radius);
 
-    $('<a href="/#/'+menu[i]+'" class="menu-circle" id="menu-' + i + '">' + menu[i] + '</a>')
+    $('<a href="/#/'+menu[i].replace(' ','_')+'" class="menu-circle" id="menu-' + i + '">' + menu[i] + '</a>')
       .css({
         top: (center_y - 50) + 'px',
         left: (center_x - 50) + 'px'})
@@ -159,6 +159,11 @@ $(window).on('hashchange', function() {
   var state = location.hash.substring(1);
 
   switch(state) {
+    case '/Tech_Tax':
+      console.log('tech tax');
+      window.location.href='http://www.mhtc.org/news/actionalert1.asp';
+      break;
+
     case '/Minutes':
       $('div#modal').show(400);
       break;
