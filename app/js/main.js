@@ -187,14 +187,18 @@ $(window).on('hashchange', function() { changeState(); });
 
 $('.close').on('click', function() {
   $('.close').parent().hide(function() {
-    location.hash='/'; 
+    document.location.hash='/'; 
   });
 });
 
 $(document).on('click', function() {
   $('div#modal').hide(function() {
-    location.hash='/';
+    document.location.hash='/';
   });
+});
+
+$('#modal-content').on('click', function(e) {
+  e.stopPropagation();
 });
 
 /*
