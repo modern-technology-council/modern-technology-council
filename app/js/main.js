@@ -30,17 +30,19 @@ function changeState() {
   var state = window.location.hash.substring(1);
 
   if($('#twitter-wjs')) { $('#twitter-wjs').remove(); }
+  $('#div#modal').hide();
 
   switch(state) {
     case '/Tech_Tax':
+      partMenu();
       $.get('../ma-tech-tax-twitter.html', function(data) {
         $('#modal-content').html(data);
         $('div#modal').show(400);
-        partMenu();
       });
       break;
 
     case '/Minutes':
+      partMenu();
       $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
       $('div#modal').show(400);
       break;
@@ -212,11 +214,14 @@ $('.close').on('click', function() {
   });
 });
 
-$(document).on('click', function() {
+/*
+$('body').on('click', function() {
+  console.log('document click event');
   $('div#modal').hide(function() {
     document.location.hash='/';
   });
 });
+*/
 
 $('#modal-content').on('click', function(e) {
   e.stopPropagation();
