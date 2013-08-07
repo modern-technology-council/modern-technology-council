@@ -5,6 +5,32 @@ var screen_height = $(document).height();
 var center_x = screen_width / 2;
 var center_y = screen_height / 2;
 
+function changeState() {
+
+  var state = location.hash.substring(1);
+
+  if($('#twitter-wjs')) $('#twitter-wjs').remove();
+
+  switch(state) {
+    case '/Tech_Tax':
+      $.get('../ma-tech-tax-twitter.html', function(data) {
+        $('#modal-content').html(data);
+        $('div#modal').show(400);
+      });
+      break;
+
+    case '/Minutes':
+      $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
+      $('div#modal').show(400);
+      break;
+
+    default:  
+      $('.close').parent().hide(function() {
+        location.hash='/'; 
+      });
+  }
+
+}
 
 function draw_circles(c, x, y, set_radius) {
 
@@ -41,8 +67,8 @@ function init_page() {
 
   console.log(document.location.hash);
 
-  if(document.location.hash == '#/Minutes') {
-    $('div#modal').show(400);
+  if(document.location.hash.length > 0) {
+    changeState();
   }
 
   $('<span class="left">{</span>').appendTo('body').hide();
@@ -125,6 +151,10 @@ function draw_menu_circles(x, y, set_radius) {
   var step_angle = (Math.PI * 2) / number_of_circles;
   var starting_angle = (Math.PI * 2 / 360) * 18;
 
+  function addMenuCircleTransition(element) {
+    $(element).addClass('menu-circle-transition');   
+  }
+  //
   // centers of circles
   for (var i = 0; i < number_of_circles; i++) {
 
@@ -132,6 +162,7 @@ function draw_menu_circles(x, y, set_radius) {
 
     var px = x + (Math.sin(angle) * set_radius);
     var py = y + (Math.cos(angle) * set_radius);
+
 
     $('<a href="/#/'+menu[i].replace(' ','_')+'" class="menu-circle" id="menu-' + i + '">' + menu[i] + '</a>')
       .css({
@@ -141,10 +172,7 @@ function draw_menu_circles(x, y, set_radius) {
         top: (py - 50) + 'px',
       left: (px - 50) + 'px',
       opacity: 1
-      }, 1000, function () {
-        $(this).addClass('menu-circle-transition');   
-      });
-
+      }, 1000, addMenuCircleTransition(this));
   }
 }
 
@@ -155,25 +183,7 @@ setTimeout(function () {
   draw_menu_circles(center_x, center_y, 175);
 }, 4000);
 
-$(window).on('hashchange', function() {
-  var state = location.hash.substring(1);
-
-  switch(state) {
-    case '/Tech_Tax':
-      console.log('tech tax');
-      window.location.href='http://www.mhtc.org/news/actionalert1.asp';
-      break;
-
-    case '/Minutes':
-      $('div#modal').show(400);
-      break;
-
-    default:  
-      $('.close').parent().hide(function() {
-        location.hash='/'; 
-      });
-  }
-});
+$(window).on('hashchange', function() { changeState(); });
 
 $('.close').on('click', function() {
   $('.close').parent().hide(function() {
@@ -187,6 +197,9 @@ $(document).on('click', function() {
   });
 });
 
-$('div#modal').on('click', function(e) {
-  e.stopProgagation();
+/*
+$('#modal-content').on('click', function(e) {
+  console.log('stopProgagation()');
+  $(e).stopProgagation();
 });
+*/
