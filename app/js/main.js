@@ -4,6 +4,26 @@ var screen_width = $(document).width();
 var screen_height = $(document).height();
 var center_x = screen_width / 2;
 var center_y = screen_height / 2;
+var parted = false;
+var menu = [];
+
+function partMenu() {
+  if(parted === false) {
+    var x = 0;
+    var y = 0;
+    $('.menu-circle').each(function(index, element) {
+      menu[index].top = $(element).position().top;
+      menu[index].left = $(element).position().left;
+      $(element).animate({top:x,left:y});
+      x+=100;
+      if(index>2 && y === 0) {
+        y = $(window).width() - 101;
+        x = 0;
+      }
+    });
+    console.dir(menu);
+  }
+}
 
 function changeState() {
 
@@ -16,6 +36,7 @@ function changeState() {
       $.get('../ma-tech-tax-twitter.html', function(data) {
         $('#modal-content').html(data);
         $('div#modal').show(400);
+        partMenu();
       });
       break;
 
