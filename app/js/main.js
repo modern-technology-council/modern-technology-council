@@ -12,8 +12,8 @@ function partMenu() {
     var x = 0;
     var y = 0;
     $('.menu-circle').each(function(index, element) {
-      menu[index].top = $(element).position().top;
-      menu[index].left = $(element).position().left;
+      //menu[index].top = $(element).position().top;
+      //menu[index].left = $(element).position().left;
       $(element).animate({top:x,left:y});
       x+=100;
       if(index>2 && y === 0) {
@@ -27,9 +27,9 @@ function partMenu() {
 
 function changeState() {
 
-  var state = location.hash.substring(1);
+  var state = window.location.hash.substring(1);
 
-  if($('#twitter-wjs')) $('#twitter-wjs').remove();
+  if($('#twitter-wjs')) { $('#twitter-wjs').remove(); }
 
   switch(state) {
     case '/Tech_Tax':
@@ -47,7 +47,7 @@ function changeState() {
 
     default:  
       $('.close').parent().hide(function() {
-        location.hash='/'; 
+        window.location.hash='/'; 
       });
   }
 
