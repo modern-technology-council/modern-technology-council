@@ -1,0 +1,31 @@
+<div class="panel">
+<div class="close"><button class="btn btn-default">Close</button></div>
+<script>
+$('.close').on('click', function() { 
+    $('.panel').fadeOut() 
+    document.location.hash='#';
+    returnMenu();
+});
+</script>
+  <div class="panel-heading">
+    <h2>Schedule</h2>
+  </div>
+  <table class="table table-condensed text-left">
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Times</th>
+    </tr>
+    <tr>
+      <td>August 21st, 2013</td>
+      <td>Council Kickoff Planning Meeting, hosted by Charlton College of Business, UMass Dartmouth</td>
+      <td>10:00 AM - 1:00 PM</td>
+    </tr>
+    <tr>
+      <td>Novermber (TBD)</td>
+      <td>Modern Technology Council Kickoff Conference</td>
+      <td>Full Day Event</td>
+    </tr>
+  </table>
+</div>
+
