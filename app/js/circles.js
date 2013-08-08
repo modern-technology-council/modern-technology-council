@@ -38,7 +38,7 @@ function draw_menu_circles(x, y, set_radius) {
   'Technology Councils',
   'Tech Tax',
   'Minutes',
-  '&#8734',
+  'Schedule',
   '&#8734',
   '&#8734'];
 

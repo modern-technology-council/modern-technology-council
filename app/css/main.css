@@ -27,6 +27,8 @@ iframe {
 }
 #banner {
   text-align: center;
+  width: 75%;
+  margin: auto;
 }
 ul.links li a:link {
   font-family: courier;
@@ -42,7 +44,7 @@ ul.links li a:hover {
 #mission {
   margin-top: 15px;
   font-size: 23px;
-  width: 31%;
+  width: 33%;
   min-width: 587px;
 }
 div#modal {

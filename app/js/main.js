@@ -9,43 +9,48 @@ var center_x = screen_width / 2;
 var center_y = screen_height / 2;
 var parted = false;
 var menu = [];
+var resize = false;
+
+$(window).on('resize', function() {
+  if(!resize) {
+    resize=true;
+    $.get('modal-bootstrap.html', function(data) {
+      $(data).appendTo('body')
+        .on('hidden.bs.modal', function() {
+          console.log('hidden');
+          document.location.reload();
+      });
+    });
+    setTimeout(function() {
+      $('#dialog-modal').modal('toggle'); 
+    },1000);
+  }
+});
 
 
 
 init_page(function() {
 
-// RESERVED 
 /*
- var w = $(window);
- var removed = false;
- var added = false;
- w.resize(function() {
-  console.log( w.height() + ':' + w.width() );
-  if(!removed && !added) {
-    if($('link[href="/css/responsive-medium.css"]').length > 0) {
-      added = true;
-    }else{
-      removed = true;
-    }
-  }
-  if(w.width() <= 1100 && !added) {
-    $('<link href="/css/responsive-medium.css" rel="stylesheet">').appendTo('head');
-    added = true;
-    removed = false;
-  }
-  if(w.width() >= 1101 && !removed) {
-    $('link[href="/css/responsive-medium.css"]').remove();
-    removed = true;
-    added = false;
-  }
- }); 
- */
+ $(window).resize(function() {
+
+  var w = $(window);
+  console.log(w); 
+  center_x = w.width()/2;
+  center_y = w.height()/2;
+  $('.left').css({left: center_x-60, top: center_y-34});
+  $('.right').css({left: center_x+50, top: center_y-34});
+  $('#myCanvas').css({width:w.width(),height:w.height()});
+ });
+*/
+
 });
 
 
 function changeState() {
 
   var state = window.location.hash.substring(1);
+  var content;
 
   if($('#twitter-wjs')) { $('#twitter-wjs').remove(); }
   $('div#modal').hide();
@@ -68,12 +73,21 @@ function changeState() {
       break;
 
     case '/Technology_Councils':
-      var content = '<div><h2>Collaborative efforts in progress.</h2></div>';
+      content = '<div><h2>Collaborative efforts in progress.</h2></div>';
       $('#banner')
         .hide()
         .html(content)
         .fadeIn(800); 
       break; 
+
+    case '/Schedule':
+      $.get(state+'.html', function(data) {
+        $('#banner')
+          .hide()
+          .html(data)
+          .fadeIn();
+      });
+      break;
 
     default:  
       $('.close').parent().hide(function() {

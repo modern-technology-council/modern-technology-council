@@ -21,7 +21,7 @@ function returnMenu() {
   var originalPosition;
   $('.menu-circle').each(function(index, el) {
     originalPosition = jQuery.data( el );
-    $(el).animate({top:originalPosition.top, left:originalPosition.left});
+    $(el).animate({top:originalPosition.top, left:originalPosition.left,'z-index':'-1'});
   });
   parted = false;
 }
