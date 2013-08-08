@@ -74,15 +74,19 @@ span {
     border: 1px solid grey;
     border-radius: 50px;
     position: absolute;
-    text-align:center;
-    line-height: 100px;
-    vertical-align: middle;
+    text-align: center;
+    display: table;
     font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size:14px;
     opacity: 0;
 }
 
-a.menu-circle-transition {
+.menu-circle a {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.menu-circle a.menu-circle-transition {
     color:#666;
     
     border:#999 1px solid;
@@ -94,7 +98,7 @@ a.menu-circle-transition {
     -webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 0);
     -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 0);
 }
-a.menu-circle-transition:hover {
+.menu-circle a.menu-circle-transition:hover {
     color:#000;
     outline:none;
     border:#35a5e5 1px solid;

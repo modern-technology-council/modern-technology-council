@@ -1,20 +1,30 @@
  
 function partMenu() {
   if(parted === false) {
+    parted = true;
     var x = 0;
     var y = 0;
     $('.menu-circle').each(function(index, element) {
       //menu[index].top = $(element).position().top;
       //menu[index].left = $(element).position().left;
       $(element).animate({top:x,left:y});
+      jQuery.data(element, { top : $(element).position().top, left: $(element).position().left });
       x+=100;
       if(index>2 && y === 0) {
         y = $(window).width() - 101;
         x = 0;
       }
     });
-    console.dir(menu);
   }
+}
+
+function returnMenu() {
+  var originalPosition;
+  $('.menu-circle').each(function(index, el) {
+    originalPosition = jQuery.data( el );
+    $(el).animate({top:originalPosition.top, left:originalPosition.left});
+  });
+  parted = false;
 }
 
 

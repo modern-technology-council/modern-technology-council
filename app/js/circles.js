@@ -29,12 +29,13 @@ function draw_circles(c, x, y, set_radius) {
   }
 
 }
+
 function draw_menu_circles(x, y, set_radius) {
 
   var menu = [
     '&#8734',
   '&#8734',
-  '&#8734',
+  'Technology Councils',
   'Tech Tax',
   'Minutes',
   '&#8734',
@@ -46,7 +47,6 @@ function draw_menu_circles(x, y, set_radius) {
   var starting_angle = (Math.PI * 2 / 360) * 18;
 
   function addMenuCircleTransition(element) {
-    console.log(this);
     $(this).addClass('menu-circle-transition');   
     $(this).on('click', function() {
       console.log($(this).find('a').attr('href'));

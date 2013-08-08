@@ -51,6 +51,7 @@ $('.close').on('click', function() {
   $('.close').parent().hide(function() {
     document.location.hash='/'; 
   });
+  returnMenu();
 });
 
 
