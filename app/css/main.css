@@ -25,6 +25,9 @@ iframe {
 #header {  
   border
 }
+#banner {
+  text-align: center;
+}
 ul.links li a:link {
   font-family: courier;
   color: blue;

@@ -48,7 +48,9 @@ function changeState() {
   var state = window.location.hash.substring(1);
 
   if($('#twitter-wjs')) { $('#twitter-wjs').remove(); }
-  $('#div#modal').hide();
+  $('div#modal').hide();
+  $('#banner').fadeOut();
+
 
   switch(state) {
     case '/Tech_Tax':
@@ -64,6 +66,14 @@ function changeState() {
       $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
       $('div#modal').show(400);
       break;
+
+    case '/Technology_Councils':
+      var content = '<div><h2>Collaborative efforts in progress.</h2></div>';
+      $('#banner')
+        .hide()
+        .html(content)
+        .fadeIn(800); 
+      break; 
 
     default:  
       $('.close').parent().hide(function() {
