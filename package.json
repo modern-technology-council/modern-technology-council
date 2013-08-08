@@ -1,6 +1,6 @@
 {
   "name": "modern-technology-council",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Modern Technology Council",
   "main": "Gruntfile.js",
   "dependencies": {
