@@ -12,7 +12,35 @@ var menu = [];
 
 
 
-init_page();
+init_page(function() {
+
+// RESERVED 
+/*
+ var w = $(window);
+ var removed = false;
+ var added = false;
+ w.resize(function() {
+  console.log( w.height() + ':' + w.width() );
+  if(!removed && !added) {
+    if($('link[href="/css/responsive-medium.css"]').length > 0) {
+      added = true;
+    }else{
+      removed = true;
+    }
+  }
+  if(w.width() <= 1100 && !added) {
+    $('<link href="/css/responsive-medium.css" rel="stylesheet">').appendTo('head');
+    added = true;
+    removed = false;
+  }
+  if(w.width() >= 1101 && !removed) {
+    $('link[href="/css/responsive-medium.css"]').remove();
+    removed = true;
+    added = false;
+  }
+ }); 
+ */
+});
 
 
 function changeState() {

@@ -2,17 +2,16 @@
 function partMenu() {
   if(parted === false) {
     parted = true;
-    var x = 0;
-    var y = 0;
+    var headerHeight = $('#header').height() + 10;
+    var x = headerHeight;
+    var y = 2;
     $('.menu-circle').each(function(index, element) {
-      //menu[index].top = $(element).position().top;
-      //menu[index].left = $(element).position().left;
-      $(element).animate({top:x,left:y});
+      $(element).animate({top:x,left:y,'z-index':1});
       jQuery.data(element, { top : $(element).position().top, left: $(element).position().left });
-      x+=100;
-      if(index>2 && y === 0) {
-        y = $(window).width() - 101;
-        x = 0;
+      x+=105;
+      if(index>2 && y === 2) {
+        y = $(window).width() - 105;
+        x = headerHeight; 
       }
     });
   }
@@ -29,7 +28,7 @@ function returnMenu() {
 
 
 
-function init_page() {
+function init_page(callback) {
 
   setTimeout(function () {
     draw_menu_circles(center_x, center_y, 175);
@@ -40,8 +39,8 @@ function init_page() {
     changeState();
   }
 
-  $('<span class="left">{</span>').appendTo('body').hide();
-  $('<span class="right">}</right>').appendTo('body').hide();
+  $('<span class="left brackets">{</span>').appendTo('body').hide();
+  $('<span class="right brackets">}</right>').appendTo('body').hide();
   $('body').append('<canvas id="myCanvas" width="' + screen_width + '" height="' + screen_height + '" />');
 
 
@@ -101,5 +100,5 @@ function init_page() {
 
   }
 
-
+  callback();
 }
