@@ -12,7 +12,7 @@ var menu = [];
 var resize = false;
 
 $(window).on('resize', function() {
-  if(!resize) {
+  if(!resize && $(window).width() > 500) {
     resize=true;
     $.get('modal-bootstrap.html', function(data) {
       $(data).appendTo('body')
