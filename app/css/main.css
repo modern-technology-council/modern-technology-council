@@ -51,8 +51,6 @@ ul.links li a:hover {
 #mission {
   margin-top: 15px;
   font-size: 20px;
-  width: 33%;
-  min-width: 550px;
 }
 div#modal {
   display: none;
