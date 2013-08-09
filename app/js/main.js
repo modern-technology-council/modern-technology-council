@@ -111,4 +111,29 @@ $('#modal-content').on('click', function(e) {
   e.stopPropagation();
 });
 
+$(document).ready(function() {
+  var taglines = $('#mission p');
+  if( !taglines.hasClass('active') ) {
+    taglines.first().addClass('active');
+  }
+  setInterval(function() {
+    taglines.each(function(index, el){
 
+     if($(el).hasClass('active')){
+      //are we at the end of the list?
+      if(index == taglines.length - 1){
+        $(el).fadeOut(function() {
+          $(this).removeClass('active');
+          $(taglines[0]).fadeIn().addClass('active');   
+        });
+      }else{
+        $(el).fadeOut(function() {
+          $(this).removeClass('active').next().fadeIn().addClass('active');
+        });
+      } 
+
+     }
+    });
+  },8000);
+
+});

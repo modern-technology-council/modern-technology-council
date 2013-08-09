@@ -1,6 +1,13 @@
 body {
   overflow: hidden;
 }
+div#mission p {
+  display: none;
+}
+div#mission p.active {
+  display: inline;
+}
+
 iframe {
   width: 99%;
   height: 99%;
@@ -23,7 +30,7 @@ iframe {
   z-index: -1;
 }
 #header {  
-  border
+  height:104px;
 }
 #banner {
   text-align: center;
