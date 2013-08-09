@@ -81,7 +81,7 @@ function changeState() {
       break; 
 
     case '/Schedule':
-	partMenu();
+   	partMenu();
       $.get(state+'.html', function(data) {
         $('#banner')
           .hide()
