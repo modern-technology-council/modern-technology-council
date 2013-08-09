@@ -1,11 +1,4 @@
-@media (max-width: 1099px) {
-  p#mission {
-    float:none;
-    text-align:left;  
-    width:100%;
-  }
-}
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   #header {
     display: none;
   }
