@@ -3,9 +3,10 @@ body {
 }
 div#mission p {
   display: none;
+  text-align: right; 
 }
 div#mission p.active {
-  display: inline;
+  display: table;
 }
 
 iframe {
@@ -51,8 +52,7 @@ ul.links li a:hover {
 #mission {
   margin-top: 15px;
   font-size: 20px;
-  width: 33%;
-  min-width: 550px;
+  width: 43%;
 }
 div#modal {
   display: none;
