@@ -3,7 +3,7 @@ body {
 }
 div#mission p {
   display: none;
-  text-align: right; 
+  text-align: left; 
 }
 div#mission p.active {
   display: table;
