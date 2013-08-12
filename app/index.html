@@ -6,8 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
-<link href="/css/responsive-medium.css" rel="stylesheet">
+<link href="/css/responsive.css" rel="stylesheet">
 </head>
 <body>
 <div id="header" class="navbar">
@@ -31,7 +32,7 @@
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-33181689-2']);
 _gaq.push(['_setAllowAnchor', true]);
-_gaq.push(['_trackPageview']);
+_gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
 (function() {
  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
