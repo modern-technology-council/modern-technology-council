@@ -37,6 +37,7 @@ iframe {
 #banner {
   width: 75%;
   margin: auto;
+  overflow-y: auto;
 }
 ul.links li a:link {
   font-family: courier;

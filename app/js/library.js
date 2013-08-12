@@ -5,8 +5,8 @@ $.loadPanel = function(state) {
     .hide()
     .html(data)
     .css({
-      height: $(window).height()+'px',
-      'z-index': 1
+      'z-index': 1,
+      'height': $(document).height()*.8
     })
     .fadeIn();
   });
