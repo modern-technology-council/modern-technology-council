@@ -86,18 +86,16 @@ function changeState() {
       break; 
 
     case '/Schedule':
-   	partMenu();
-      $.get(state+'.html', function(data) {
-        $('#banner')
-          .hide()
-          .html(data)
-          .fadeIn();
-      });
+      $.loadPanel(state);
       break;
 
     default:  
-      $('.close').parent().hide(function() {
-        window.location.hash='/'; 
+      $.get(state+'.html').done(function() {
+        $.loadPanel(state);
+      }).fail(function() {
+        $('.close').parent().hide(function() {
+          window.location.hash='/'; 
+        });
       });
   }
 
