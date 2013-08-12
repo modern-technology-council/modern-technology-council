@@ -1,6 +1,11 @@
 body {
   overflow: hidden;
 }
+pre {
+  white-space: pre-wrap;
+  word-wrap: normal;
+  word-break: normal;
+}
 div#mission p {
   display: none;
 }
