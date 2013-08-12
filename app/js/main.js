@@ -82,11 +82,7 @@ function changeState() {
       break;
 
     case '/Technology_Councils':
-      content = '<div><h2>Collaborative efforts in progress.</h2></div>';
-      $('#banner')
-        .hide()
-        .html(content)
-        .fadeIn(800); 
+      $.loadPanel(state);
       break; 
 
     case '/Schedule':
