@@ -4,7 +4,10 @@ $.loadPanel = function(state) {
     $('#banner')
     .hide()
     .html(data)
-    .css('height',$(window).height()+'px')
+    .css({
+      height: $(window).height()+'px',
+      'z-index': 1
+    })
     .fadeIn();
   });
 } 
