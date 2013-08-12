@@ -3,7 +3,6 @@ body {
 }
 div#mission p {
   display: none;
-  text-align: left; 
 }
 div#mission p.active {
   display: table;
@@ -34,7 +33,6 @@ iframe {
   height:104px;
 }
 #banner {
-  text-align: center;
   width: 75%;
   margin: auto;
 }
