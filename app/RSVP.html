@@ -67,7 +67,9 @@
 $('#rsvp').modal();
 $('#rsvp').on('hidden.bs.modal', function() {
     $('#banner').hide();
-    });
+    document.location.hash="";
+    returnMenu();
+});
 $('button.rsvp').on('click', function() {
     $.rsvp = {};
     var test = $('form#rsvp_form :input').map(function(index,el) {
@@ -83,6 +85,6 @@ $('button.rsvp').on('click', function() {
       $.rsvp[obj.name] = obj.value;
       console.log(obj.name + ' : ' + obj.value);
     });
-    console.dir(JSON.stringify($.rsvp));
+    console.log(JSON.stringify($.rsvp));
 });
 </script>

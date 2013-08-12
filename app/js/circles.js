@@ -32,15 +32,6 @@ function draw_circles(c, x, y, set_radius) {
 
 function draw_menu_circles(x, y, set_radius, callback) {
 
-  var menu = [
-    '&#8734',
-  '&#8734',
-  'Technology Councils',
-  'Tech Tax',
-  'Minutes',
-  'Schedule',
-  '&#8734',
-  '&#8734'];
 
   var number_of_circles = 8;
   var step_angle = (Math.PI * 2) / number_of_circles;
