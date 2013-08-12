@@ -69,15 +69,20 @@ function changeState() {
     case '/Minutes':
       partMenu();
       $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
+      $('#modal-content').prepend('<button><span class="glyphicon glyphicon-print"></span> Printable Version</button>')
+        .on('click', function() {
+          // here comes the ugly (for now)
+          alert('Use Ctrl+P on the next window');
+          var height = $(window).height();
+          var width = $(window).width()*.8;
+          window.open('https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub','print',
+            'height='+height+',width='+width+',top=0,left=0,toolbar=yes,location=yes');
+        });
       $('div#modal').show(400);
       break;
 
     case '/Technology_Councils':
-      content = '<div><h2>Collaborative efforts in progress.</h2></div>';
-      $('#banner')
-        .hide()
-        .html(content)
-        .fadeIn(800); 
+      $.loadPanel(state);
       break; 
 
     case '/Schedule':

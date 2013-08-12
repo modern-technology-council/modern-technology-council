@@ -1,4 +1,13 @@
- 
+$.loadPanel = function(state) {
+  partMenu();
+  $.get(state+'.html', function(data) {
+    $('#banner')
+    .hide()
+    .html(data)
+    .css('height',$(window).height()+'px')
+    .fadeIn();
+  });
+} 
 function partMenu() {
   if(parted === false) {
     parted = true;
@@ -31,7 +40,14 @@ function returnMenu() {
 function init_page(callback) {
 
   setTimeout(function () {
-    draw_menu_circles(center_x, center_y, 175);
+    draw_menu_circles(center_x, center_y, 175, function() {
+      if(document.location.hash.length > 2) {
+        setTimeout(function() {
+          parted=false;
+          partMenu();
+        },2000);
+      } 
+    });
   }, 4000);
 
 
@@ -40,7 +56,7 @@ function init_page(callback) {
   }
 
   $('<span class="left brackets">{</span>').appendTo('body').hide();
-  $('<span class="right brackets">}</right>').appendTo('body').hide();
+    $('<span class="right brackets">}</right>').appendTo('body').hide();
   $('body').append('<canvas id="myCanvas" width="' + screen_width + '" height="' + screen_height + '" />');
 
 

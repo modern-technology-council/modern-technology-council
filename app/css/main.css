@@ -3,7 +3,6 @@ body {
 }
 div#mission p {
   display: none;
-  text-align: left; 
 }
 div#mission p.active {
   display: table;
@@ -11,7 +10,6 @@ div#mission p.active {
 
 iframe {
   width: 99%;
-  height: 99%;
   border: none;
 }
 .clearfix:before, .clearfix:after {
@@ -34,7 +32,6 @@ iframe {
   height:104px;
 }
 #banner {
-  text-align: center;
   width: 75%;
   margin: auto;
 }
