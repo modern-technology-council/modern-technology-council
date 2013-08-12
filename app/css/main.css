@@ -10,7 +10,6 @@ div#mission p.active {
 
 iframe {
   width: 99%;
-  height: 99%;
   border: none;
 }
 .clearfix:before, .clearfix:after {
