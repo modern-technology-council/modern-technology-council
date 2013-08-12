@@ -12,6 +12,9 @@ iframe {
   width: 99%;
   border: none;
 }
+#modal-content iframe {
+  height: 90%;
+}
 .clearfix:before, .clearfix:after {
   content: " ";
   display table;
