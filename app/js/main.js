@@ -69,6 +69,14 @@ function changeState() {
     case '/Minutes':
       partMenu();
       $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
+      $('#modal-content').prepend('<button><span class="glyphicon glyphicon-print"></span></button>')
+        .on('click', function() {
+          // here comes the ugly (for now)
+          alert('Use Ctrl+P on the next window');
+          var height = $(window).height()*.8
+          var width = $(window).width()*.8
+          window.open('https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true','print','height='+height+',width='+width+'');
+        });
       $('div#modal').show(400);
       break;
 
