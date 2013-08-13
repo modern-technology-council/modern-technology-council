@@ -130,7 +130,6 @@ if(!$.agenda) {
 $('button.rsvp').on('click', function() {
   $.validated = true;
   $(this).attr("disabled","disabled");
-  $(this).text('checking...');
   validate('form#rsvp_form');
   if($.validated) {
     $(this).text('submitting...');
@@ -155,7 +154,6 @@ $('button.rsvp').on('click', function() {
     });
   }else{
     $(this).attr("disabled",false);
-    $(this).text("I'll be there!");
   }
 });
 </script>
