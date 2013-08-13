@@ -40,6 +40,7 @@ app.use(express.static(__dirname + '/app'));
 
 app.post('/api/rsvp/submit', function(req, res, next) {
   var data = {};
+  mailOptions.text = '';
   for(i in req.body){
     mailOptions.text += i + ":\t" + req.body[i] + "\n";
     data[i] = req.body[i];
@@ -51,10 +52,8 @@ app.post('/api/rsvp/submit', function(req, res, next) {
   smtp.sendMail(mailOptions, function(error,response) {
     if(error){
       logger.error('send error',error);
-      data = {};
       res.send('FAIL');
     }else{
-      data = {};
       res.send('OK');
     }
   });
