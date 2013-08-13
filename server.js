@@ -38,7 +38,7 @@ app.use(express.logger('dev'));
 
 app.use(express.static(__dirname + '/app'));
 
-app.post('/api/rsvp/submit', function(req, res) {
+app.post('/api/rsvp/submit', function(req, res, next) {
   var data = {};
   for(i in req.body){
     mailOptions.text += i + ":\t" + req.body[i] + "\n";

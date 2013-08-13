@@ -40,6 +40,7 @@ function returnMenu() {
 
 function validate(target) {
   //$('input').data('intervalRunning', false);
+  //If you're fast enough, you can submit with empties. ;)
   $(target + ' :input').each(function () {
     if ($(this).val() === '' && !$(this).data('intervalRunning')) {
       $.validated = false;
