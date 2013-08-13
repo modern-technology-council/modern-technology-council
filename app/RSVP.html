@@ -70,56 +70,81 @@ $('#rsvp').on('hidden.bs.modal', function() {
     $('#banner').html('');
     document.location.hash="";
     returnMenu();
-});
-$('<button class="btn btn-primary button-agenda">Agenda</button>').appendTo('.modal-header').on('click',function() {
-  $.modal = $('.modal-body');
-  $('button.button-agenda').attr('disabled','disabled');
-  $.modal.css({
-    height : $($.modal).height()+'px',
-    'overflow-y' : 'auto'
-  });
-  $('button.rsvp').hide();
- 
-  if(!$.rsvp){
-    $.rsvp = $.modal.html();
-  }
+    });
 
-  if($('.button-rsvp-form').length==0){
+// This turned-out a bigger mess than I anticipated.
+// It works the Agenda and RSVP Form buttons
+$('<button class="btn btn-primary button-agenda">Agenda</button>').appendTo('.modal-header').on('click',function() {
+    $.modal = $('.modal-body');
+    $('button.button-agenda').attr('disabled','disabled');
+    $.modal.css({
+height : $($.modal).height()+'px',
+'overflow-y' : 'auto'
+});
+    $('button.rsvp').hide();
+
+    if(!$.rsvp){
+    $.rsvp = $.modal.html();
+    }
+
+    if($('.button-rsvp-form').length==0){
     $('<button class="btn btn-primary button-rsvp-form">RSVP Form</button>').appendTo('.modal-header').on('click', function() {
       $.modal.html($.rsvp);
       $.modal.css('height', '');
       $('button.button-agenda').attr('disabled',false);
       $('button.rsvp').show();
-    });  
-  }
+      });  
+    }
 
-  if(!$.agenda) {
+if(!$.agenda) {
   $.get('/Agenda.html', function(data) {
-    $.agenda = data;
-    $.modal.html(data).css(height,'500px');
-  });
-  }else{
-    $.modal.html($.agenda);
-  }
+      $.agenda = data;
+      $.modal.html(data).css(height,'500px');
+      });
+}else{
+  $.modal.html($.agenda);
+}
 });
+
+//FORM SUBMIT
 $('button.rsvp').on('click', function() {
+    var validform = true;
+    $('form#rsvp_form :input').each(function(index,el){
+      if($(el).val().length < 1) {
+      var self = $(el);
+      $(self).parent().addClass('has-warning');
+      $('<div class="form-control">Missing</div>').css({
+        'position':'absolute',
+        'height':self.height()+14,
+        'width':self.width()+26,
+        'top':self.position().top,
+        'left':self.position().left,
+        'z-index':99,
+        'font-color':'red',
+        'background-color':'yellow'
+        }).hide().appendTo('.modal-body').fadeIn().fadeOut(2000); 
+      validform = false;
+      }
+      });
+    if(validform) {
     $.rsvp = {};
     var test = $('form#rsvp_form :input').map(function(index,el) {
       if(el.type == 'checkbox'){
-        el.id = $(el).val();
-        value = $(el).is(':checked');
+      el.id = $(el).val();
+      value = $(el).is(':checked');
       }else{
-        value = $(el).val();
+      value = $(el).val();
       }
       return {name:el.id, type:el.type, value: value};
-    });
+      });
     $(test).each(function(index,obj) {
-      $.rsvp[obj.name] = obj.value;
-      console.log(obj.name + ' : ' + obj.value);
-    });
-    console.log(JSON.stringify($.rsvp));
+        $.rsvp[obj.name] = obj.value;
+        });
     $.post('/api/rsvp/submit', $.rsvp, function(response) {
-      console.log(response);
-    });
+        console.log(response);
+        });
+    }else{
+      return false
+    }
 });
 </script>
