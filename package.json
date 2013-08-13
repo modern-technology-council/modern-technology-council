@@ -13,7 +13,7 @@
   "devDependencies": {
     "winston": "~0.7.2",
     "express": "~3.3.5",
-    "nodemailer": "~0.5.2"
+    "nodemailer": "~0.5.2",
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
