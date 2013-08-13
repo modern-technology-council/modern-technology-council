@@ -142,4 +142,8 @@ a {
   text-shadow:  1px 1px 5px rgba(103, 89, 166, .4);
   font-size: 17px;
 }
+.tech-tile h5 {
+  display:inline;
+  margin-right:7px;
+}
 
