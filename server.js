@@ -16,13 +16,13 @@ var mailOptions = {
   text: ""
 }
 var winston = require('winston');
-winston.add(winston.transports.File, { filename: 'data/general.log.json' });
+winston.add(winston.transports.File, { filename: 'data/general.log' });
 winston.remove(winston.transports.Console);
 winston.handleExceptions(new winston.transports.File({ filename: 'data/exceptions.log' }))
 var logger = new (winston.Logger)({
   transports: [
     new (winston.transports.File)({
-      filename: 'data/rsvps.json',
+      filename: 'data/rsvps.log',
       handleExceptions: true
     })
   ]
