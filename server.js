@@ -1,3 +1,4 @@
+console.log(process.argv);
 var readFileSync = require('fs').readFileSync;
 var mailer = require('nodemailer');
 var smtp = mailer.createTransport("SMTP",{
