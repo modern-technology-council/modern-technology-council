@@ -51,8 +51,10 @@ app.post('/api/rsvp/submit', function(req, res, next) {
   smtp.sendMail(mailOptions, function(error,response) {
     if(error){
       logger.error('send error',error);
+      data = {};
       res.send('FAIL');
     }else{
+      data = {};
       res.send('OK');
     }
   });

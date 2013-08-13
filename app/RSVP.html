@@ -138,7 +138,7 @@ $('button.rsvp').on('click', function() {
     validate('form#rsvp_form');
     if($.validated) {
     $(this).text('submitting...');
-    $.rsvp = {};
+    $.rsvp = {attending:$(this).attr('data')};
     var test = $('form#rsvp_form :input').map(function(index,el) {
       if(el.type == 'checkbox'){
       el.id = $(el).val();
