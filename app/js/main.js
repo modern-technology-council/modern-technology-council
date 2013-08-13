@@ -9,14 +9,14 @@ var center_x = screen_width / 2;
 var center_y = screen_height / 2;
 var parted = false;
 var menu = [
-'&#8734',
-  '&#8734',
+  'Modern Technology',
+  'Resources',
   'Technology Councils',
   'Tech Tax',
   'Minutes',
   'Schedule',
   'RSVP',
-  '&#8734'];
+  'Mission'];
 var resize = false;
 
 $(window).on('resize', function() {
