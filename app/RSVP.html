@@ -1,0 +1,164 @@
+<div class="modal fade show" data-backdrop="static" id="rsvp">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">RSVP: August 21st, 2013 Council Kickoff Conference Planning Meeting</h3>
+        <p>10:00 AM - 1:00 PM at the UMD Library</p>
+      </div>
+      <div class="modal-body">
+
+        <form action="/api/rsvp/submit" id="rsvp_form">
+          <fieldset>
+            <legend>Please complete the RSVP form.</legend>
+
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" class="form-control" id="fullname" placeholder="your full name">
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="allow-public-name" ><span data-toggle="tooltip" title="May we add your name to the public attendee list?">Make public</span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="full email address">
+              <small>Email will never be shared or made public.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="organization">Organization</label>
+              <input type="text" class="form-control" id="organization" placeholder="who are you representing?">
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="allow-public-organization"><span data-toggle="tooltip" title="May we publicize your organization's participation?">Make public</span>
+              </label>
+            </div>
+
+
+            <div class="form-group">
+              <label for="interest">Where would you fit best?</label>
+              <select class="form-control" name="interest" id="interest">
+
+                <option></option>
+                <option>Engineer</option>
+                <option>Technologist</option>
+                <option>Technology Company</option>
+                <option>Primary Education</option>
+                <option>Secondary Education</option>
+                <option>Sm-Med Business</option>
+                <option>Corporate</option>
+                <option>Municipality</option>
+                <option>Other</option>
+
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactInfo">My Contact Info</label>
+              <textarea class="form-control" id="contactInfo" placeholder="any helpful contact info" rows="4"></textarea>
+              <small>You can also use this space to provide comments.</small>
+            </div>
+
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="subscribe-to-emaillist">Please add me to the email list.
+              </label>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default rsvp" data="no">I cannot attend.</button>
+        <button type="button" class="btn btn-success rsvp" data="yes">I'll be there!</button>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+$('#rsvp').modal();
+$('#rsvp').on('hidden.bs.modal', function() {
+    $('#banner').hide();
+    $('#banner').html('');
+    document.location.hash="";
+    returnMenu();
+    });
+
+$('span').tooltip();
+
+// This turned-out a bigger mess than I anticipated.
+// It works the Agenda and RSVP Form buttons
+/*
+   $('<button class="btn btn-primary button-agenda">Agenda</button>').appendTo('.modal-header').on('click',function() {
+   $.modal = $('.modal-body');
+   $('button.button-agenda').attr('disabled','disabled');
+   $.modal.css({
+height : $($.modal).height()+'px',
+'overflow-y' : 'auto'
+});
+$('button.rsvp').hide();
+
+if(!$.rsvp){
+$.rsvp = $.modal.html();
+}
+
+if($('.button-rsvp-form').length==0){
+$('<button class="btn btn-primary button-rsvp-form">RSVP Form</button>').appendTo('.modal-header').on('click', function() {
+$.modal.html($.rsvp);
+$.modal.css('height', '');
+$('button.button-agenda').attr('disabled',false);
+$('button.rsvp').show();
+});  
+}
+
+if(!$.agenda) {
+$.get('/Agenda.html', function(data) {
+$.agenda = data;
+$.modal.html(data).css(height,'500px');
+});
+}else{
+$.modal.html($.agenda);
+}
+});
+ */
+
+//FORM SUBMIT
+$('button.rsvp').on('click', function() {
+    $.validated = true;
+    $(this).attr("disabled","disabled");
+    validate('form#rsvp_form');
+    if($.validated) {
+    $(this).text('submitting...');
+    $.rsvp = {attending:$(this).attr('data')};
+    var test = $('form#rsvp_form :input').map(function(index,el) {
+      if(el.type == 'checkbox'){
+      el.id = $(el).val();
+      value = $(el).is(':checked');
+      }else{
+      value = $(el).val();
+      }
+      return {name:el.id, type:el.type, value: value};
+      });
+    $(test).each(function(index,obj) {
+      $.rsvp[obj.name] = obj.value;
+      });
+    $.post('/api/rsvp/submit', $.rsvp, function(response) {
+      if(response == 'OK'){
+      $('button.rsvp').hide();
+      $('.modal-body').html('<h3>Thank You</h3><p>We will follow-up with you shortly</p>');
+      }
+      });
+    }else{
+      $(this).attr("disabled",false);
+    }
+});
+</script>

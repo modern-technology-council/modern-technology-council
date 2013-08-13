@@ -8,7 +8,15 @@ var screen_height = $(document).height();
 var center_x = screen_width / 2;
 var center_y = screen_height / 2;
 var parted = false;
-var menu = [];
+var menu = [
+'&#8734',
+  '&#8734',
+  'Technology Councils',
+  'Tech Tax',
+  'Minutes',
+  'Schedule',
+  'RSVP',
+  '&#8734'];
 var resize = false;
 
 $(window).on('resize', function() {
@@ -16,9 +24,9 @@ $(window).on('resize', function() {
     resize=true;
     $.get('modal-bootstrap.html', function(data) {
       $(data).appendTo('body')
-        .on('hidden.bs.modal', function() {
-          console.log('hidden');
-          document.location.reload();
+      .on('hidden.bs.modal', function() {
+        console.log('hidden');
+        document.location.reload();
       });
     });
     setTimeout(function() {
@@ -31,18 +39,18 @@ $(window).on('resize', function() {
 
 init_page(function() {
 
-/*
- $(window).resize(function() {
+  /*
+     $(window).resize(function() {
 
-  var w = $(window);
-  console.log(w); 
-  center_x = w.width()/2;
-  center_y = w.height()/2;
-  $('.left').css({left: center_x-60, top: center_y-34});
-  $('.right').css({left: center_x+50, top: center_y-34});
-  $('#myCanvas').css({width:w.width(),height:w.height()});
- });
-*/
+     var w = $(window);
+     console.log(w); 
+     center_x = w.width()/2;
+     center_y = w.height()/2;
+     $('.left').css({left: center_x-60, top: center_y-34});
+     $('.right').css({left: center_x+50, top: center_y-34});
+     $('#myCanvas').css({width:w.width(),height:w.height()});
+     });
+     */
 
 });
 
@@ -86,18 +94,19 @@ function changeState() {
       break; 
 
     case '/Schedule':
-   	partMenu();
-      $.get(state+'.html', function(data) {
-        $('#banner')
-          .hide()
-          .html(data)
-          .fadeIn();
-      });
+      $.loadPanel(state);
       break;
 
     default:  
-      $('.close').parent().hide(function() {
-        window.location.hash='/'; 
+      // BAD!!
+      // Check if file exists and load on success.
+      // TODO: check if requesting file or if hashtag is empty
+      $.get(state+'.html').done(function() {
+        $.loadPanel(state);
+      }).fail(function() {
+        $('.close').parent().hide(function() {
+          window.location.hash='/'; 
+        });
       });
   }
 
@@ -125,20 +134,20 @@ $(document).ready(function() {
   setInterval(function() {
     taglines.each(function(index, el){
 
-     if($(el).hasClass('active')){
-      //are we at the end of the list?
-      if(index == taglines.length - 1){
-        $(el).fadeOut(function() {
-          $(this).removeClass('active');
-          $(taglines[0]).fadeIn().addClass('active');   
-        });
-      }else{
-        $(el).fadeOut(function() {
-          $(this).removeClass('active').next().fadeIn().addClass('active');
-        });
-      } 
+      if($(el).hasClass('active')){
+        //are we at the end of the list?
+        if(index == taglines.length - 1){
+          $(el).fadeOut(function() {
+            $(this).removeClass('active');
+            $(taglines[0]).fadeIn().addClass('active');   
+          });
+        }else{
+          $(el).fadeOut(function() {
+            $(this).removeClass('active').next().fadeIn().addClass('active');
+          });
+        } 
 
-     }
+      }
     });
   },8000);
 

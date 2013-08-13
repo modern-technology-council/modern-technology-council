@@ -1,3 +1,5 @@
+var parse = require('arg').parse;
+var args = parse ( process.argv.join(" ") );
 var readFileSync = require('fs').readFileSync;
 var mailer = require('nodemailer');
 var smtp = mailer.createTransport("SMTP",{
@@ -14,13 +16,13 @@ var mailOptions = {
   text: ""
 }
 var winston = require('winston');
-winston.add(winston.transports.File, { filename: 'data/general.log.json' });
+winston.add(winston.transports.File, { filename: 'data/general.log' });
 winston.remove(winston.transports.Console);
 winston.handleExceptions(new winston.transports.File({ filename: 'data/exceptions.log' }))
 var logger = new (winston.Logger)({
   transports: [
     new (winston.transports.File)({
-      filename: 'data/rsvps.json',
+      filename: 'data/rsvps.log',
       handleExceptions: true
     })
   ]
@@ -38,10 +40,12 @@ app.use(express.static(__dirname + '/app'));
 
 app.post('/api/rsvp/submit', function(req, res, next) {
   var data = {};
+  mailOptions.text = '';
   for(i in req.body){
     mailOptions.text += i + ":\t" + req.body[i] + "\n";
     data[i] = req.body[i];
   }
+  console.log(data);
   logger.info('rsvp',{'data' : data},function() {
     winston.info('submit logged'); 
   });
@@ -58,6 +62,9 @@ app.post('/api/rsvp/submit', function(req, res, next) {
 
 app.use(app.router);
 
-app.listen(8080);
-
+if(args.p > 0) {
+  app.listen(args.p);
+}else{
+  app.listen(80);
+}
 
