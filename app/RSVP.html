@@ -123,6 +123,7 @@ $('button.rsvp').on('click', function() {
         'font-color':'red',
         'background-color':'yellow'
         }).hide().appendTo('.modal-body').fadeIn().fadeOut(2000); 
+      console.log('form validation failed');
       validform = false;
       }
       });
@@ -141,8 +142,11 @@ $('button.rsvp').on('click', function() {
         $.rsvp[obj.name] = obj.value;
         });
     $.post('/api/rsvp/submit', $.rsvp, function(response) {
-        console.log(response);
-        });
+        if(response == 'OK'){
+          $('button.rsvp').hide();
+          $('.modal-body').html('<h3>Thank You</h3><p>We will follow-up with you shortly</p>');
+        }
+    });
     }else{
       return false
     }
