@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 var readFileSync = require('fs').readFileSync;
+=======
+>>>>>>> 8360da5f27c5ad613b1de8c0633279c5c7640ca0
 var mailer = require('nodemailer');
 var smtp = mailer.createTransport("SMTP",{
   service: "Gmail",
     auth: {
     user: "andrew@myimedia.com",
+<<<<<<< HEAD
     pass: readFileSync('.passwd','utf8') 
+=======
+    pass: ""
+>>>>>>> 8360da5f27c5ad613b1de8c0633279c5c7640ca0
     }
 });
 var mailOptions = {
@@ -58,6 +65,10 @@ app.post('/api/rsvp/submit', function(req, res, next) {
 
 app.use(app.router);
 
+<<<<<<< HEAD
 app.listen(8080);
+=======
+app.listen(80);
+>>>>>>> 8360da5f27c5ad613b1de8c0633279c5c7640ca0
 
 

@@ -1,4 +1,8 @@
 .passwd
+<<<<<<< HEAD
+=======
+data
+>>>>>>> 8360da5f27c5ad613b1de8c0633279c5c7640ca0
 lib-cov
 node_modules
 *.seed
