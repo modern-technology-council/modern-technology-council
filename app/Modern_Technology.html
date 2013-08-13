@@ -1,24 +1,24 @@
 <script>
 var list = [
 
-{ name: "Distributed Version Control (Git)", "title":"a.k.a. Source Code Management (SCM)", "desc":"", "link":"" },
-{ name: "Hypertext Markup Language (HTML5)", "title":"", "desc":"", "link":"" },
-{ name: "Cascading Style Sheets (CSS3)", "title":"", "desc":"", "link":"" },
-{ name: "Scripted Graphics &lt;canvas&gt;", "title":"", "desc":"", "link":"" },
-{ name: "JavaScript", "title":"", "desc":"", "link":"" },
-{ name: "jQuery", "title":"", "desc":"", "link":"" },
-{ name: "Document Object Model (DOM)", "title":"", "desc":"", "link":"" },
-{ name: "Shadow DOM", "title":"Custom Elements", "desc":"see polymer-project.org", "link":"" },
-{ name: "JavaScript Object Notation (JSON)", "title":"", "desc":"", "link":"" },
-{ name: "Asynchronous JavaScript and XML (AJAX)", "title":"see XMLHttpRequest (XHR)", "desc":"", "link":"" },
-{ name: "Chrome Dev Tools", "title":"", "desc":"", "link":"" },
-{ name: "Mapreduce", "title":"a.k.a JSON Document Database", "desc":"", "link":"" },
-{ name: "Model Views Controllers (MVC)", "title":"", "desc":"", "link":"" },
-{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"" },
-{ name: "Application Programming Interface (API)", "title":"", "desc":"", "link":"" },
-{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"" },
-{ name: "Open Source Hardware (Arduino)", "title":"programmable single-board microcontroller", "desc":"", "link":"" },
-{ name: "Ember, Angular, Backbone", "title":"MVC/MDV Frameworks", "desc":"", "link":"" }
+{ name: "Distributed Version Control (Git)", "title":"a.k.a. Source Code Management (SCM)", "desc":"", "link":"", "dataPopover":"#helpGithub" },
+{ name: "Hypertext Markup Language (HTML5)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub" },
+{ name: "Cascading Style Sheets (CSS3)", "title":"", "desc":"", "link":"" , "dataPopover":"#helpGithub" },
+{ name: "Scripted Graphics &lt;canvas&gt;", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "JavaScript", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "jQuery", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Document Object Model (DOM)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Shadow DOM", "title":"Custom Elements", "desc":"see polymer-project.org", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "JavaScript Object Notation (JSON)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Asynchronous JavaScript and XML (AJAX)", "title":"see XMLHttpRequest (XHR)", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Chrome Dev Tools", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Mapreduce", "title":"a.k.a JSON Document Database", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Model Views Controllers (MVC)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Application Programming Interface (API)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Open Source Hardware (Arduino)", "title":"programmable single-board microcontroller", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Ember, Angular, Backbone", "title":"MVC/MDV Frameworks", "desc":"", "link":"", "dataPopover":"#helpGithub"  }
 
 ]
 
@@ -38,25 +38,48 @@ var list = [
     <div class="well col-3"><h5>ASM</h5></div>
   </div>
 
+  <div id='helpGithub' class='popout-fill'>
+    <h3>Help us on Git Hub!</h3>
+    <p>If you want to help us out and add more content here, please help us out at Github</p>
+    <p><a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Modern Technology Council Github Repository</a></p>
+  </div>
+
 </div>
 <script>
 console.log(list);
 $.each(list, function(index,obj) {
-    $('#current-technology').append('<div class="well col-3 tech-tile"><h5>'+obj.name+'</h5></div>');
+    $('#current-technology').append('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5>'+obj.name+'</h5></div>');
     });
 
 //$('.tech-tile').on('click', popOut); 
 $('.tech-tile').on('click', function(e) {
     e.stopPropagation();
+    var self = $(this);
     $(document).off('click');
-    $('.popout').remove();
+    $('.popout').html($('.popout').data('origHtml'));
+    $('.popout').animate($('.popout').data('origCss'), function(){
+     $(this).remove();
+    });   
     moveDiv = $('<div class="popout well">');
     moveDiv.html($(this).html());
+    moveDiv.data('origHtml', $(this).html());
+    extra = $(self.attr('data-popout')).html();
     $('body').append(moveDiv);
-    moveDiv.css({left: $(this).position().left, top: $(this).position().top, width: $(this).width()})
+    var origCss = {
+      left: self.position().left,
+      top: self.position().top,
+      width: self.outerWidth(),
+      height: self.outerHeight()
+    };
+    moveDiv.css(origCss);
+    moveDiv.data('origCss', origCss)
     moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
+      $(this).append(extra);
       $(document).on('click', function(){
-        $('.popout').remove();
+        $('.popout').html(self.html());
+        $('.popout').animate(origCss, function(){
+          $(this).remove();
+        });
         $(document).off('click');
         });
       });

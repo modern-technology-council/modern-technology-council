@@ -142,4 +142,6 @@ a {
   text-shadow:  1px 1px 5px rgba(103, 89, 166, .4);
   font-size: 17px;
 }
-
+.popout-fill {
+  display: none;
+}
