@@ -1,4 +1,5 @@
-console.log(process.argv);
+var parse = require('arg').parse;
+var args = parse ( process.argv.join(" ") );
 var readFileSync = require('fs').readFileSync;
 var mailer = require('nodemailer');
 var smtp = mailer.createTransport("SMTP",{
@@ -59,6 +60,9 @@ app.post('/api/rsvp/submit', function(req, res, next) {
 
 app.use(app.router);
 
-app.listen(80);
-
+if(args.p > 0) {
+  app.listen(args.p);
+}else{
+  app.listen(80);
+}
 
