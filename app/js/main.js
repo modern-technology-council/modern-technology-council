@@ -98,6 +98,9 @@ function changeState() {
       break;
 
     default:  
+      // BAD!!
+      // Check if file exists and load on success.
+      // TODO: check if requesting file or if hashtag is empty
       $.get(state+'.html').done(function() {
         $.loadPanel(state);
       }).fail(function() {

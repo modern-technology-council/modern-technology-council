@@ -110,26 +110,9 @@ if(!$.agenda) {
 
 //FORM SUBMIT
 $('button.rsvp').on('click', function() {
-    var validform = true;
-    $('form#rsvp_form :input').each(function(index,el){
-      if($(el).val().length < 1) {
-      var self = $(el);
-      $(self).parent().addClass('has-warning');
-      $('<div class="form-control">Missing</div>').css({
-        'position':'absolute',
-        'height':self.height()+14,
-        'width':self.width()+26,
-        'top':self.position().top,
-        'left':self.position().left,
-        'z-index':99,
-        'font-color':'red',
-        'background-color':'yellow'
-        }).hide().appendTo('.modal-body').fadeIn().fadeOut(2000); 
-      console.log('form validation failed');
-      validform = false;
-      }
-      });
-    if(validform) {
+  $.validated = true;
+  validate('form#rsvp_form');
+  if($.validated) {
     $.rsvp = {};
     var test = $('form#rsvp_form :input').map(function(index,el) {
       if(el.type == 'checkbox'){
@@ -149,8 +132,8 @@ $('button.rsvp').on('click', function() {
           $('.modal-body').html('<h3>Thank You</h3><p>We will follow-up with you shortly</p>');
         }
     });
-    }else{
-      return false
-    }
+  }else{
+    return false
+  }
 });
 </script>
