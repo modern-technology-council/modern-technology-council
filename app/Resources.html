@@ -1,0 +1,55 @@
+<script>
+var list = [
+
+{ name: "World Wide Web Consortium (W3C)", "title":"", "desc":"", "link":"http://www.w3.org/" },
+{ name: "Mozilla Developer Network (MDN)", "title":"", "desc":"", "link":"http://developer.mozilla.org/" },
+{ name: "Chrome DevTools", "title":"", "desc":"", "link":"https://developers.google.com/chrome-developer-tools/" }
+
+]
+
+</script>
+<div class="container" id="technologies">
+
+  <h3>Modern Technology Resources</h3>
+  <p><span class="glyphicon glyphicon-bullhorn"></span> This is an ever-changing list. If you feel we missed one or got one wrong, 
+  then <a href="/#/RSVP">join the Council</a> and contribute. <span class="glyphicon glyphicon-heart-empty"></span> You can also help us manage this list via <a href="">GitHub</a>.</p>
+  <div class="row-fluid clearfix" id="current-technology">
+
+  </div>
+
+
+</div>
+<script>
+console.log(list);
+$.each(list, function(index,obj) {
+    var link;
+    if(obj.link.length>0) {
+    link = '<a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>';
+    }
+    $('#current-technology').append('<div class="well col-3 tech-tile"><h5>'+obj.name+'</h5>'+link+'</div>');
+    });
+
+//$('.tech-tile').on('click', popOut); 
+$('.tech-tile').on('click', function(e) {
+    e.stopPropagation();
+    $(document).off('click');
+    $('.popout').remove();
+    moveDiv = $('<div class="popout well">');
+    moveDiv.html($(this).html());
+    $('body').append(moveDiv);
+    moveDiv.css({left: $(this).position().left, top: $(this).position().top, width: $(this).width()})
+    moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
+      $(document).on('click', function(){
+        $('.popout').remove();
+        $(document).off('click');
+        });
+      });
+    moveDiv.on('click', function(e){
+      e.stopPropagation();
+      });
+    });  
+$('.tech-tile a').on('click', function(e) {
+  e.stopPropagation();
+  document.location.href=$(this).attr('href');
+    });
+</script>

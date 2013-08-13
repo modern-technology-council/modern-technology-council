@@ -145,3 +145,7 @@ a {
 .popout-fill {
   display: none;
 }
+.tech-tile h5 {
+  display:inline;
+  margin-right:7px;
+}
