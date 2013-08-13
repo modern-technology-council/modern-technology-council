@@ -129,3 +129,17 @@ a {
   text-align: right;
   margin-bottom: 5px;
 }
+.popout {
+  position: fixed;
+  box-shadow: 0px 0px 19px #000;
+  -webkit-box-shadow: 0px 0px 19px #000;
+  -moz-box-shadow: 0px 0px 19px #000;
+}
+#technologies > div > div, .popout {
+  height: 85px;
+}
+#technologies div div h5, .popout {
+  text-shadow:  1px 1px 5px rgba(103, 89, 166, .4);
+  font-size: 17px;
+}
+

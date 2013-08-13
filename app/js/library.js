@@ -48,29 +48,29 @@ function validate(target) {
       var ease = 0;
       var j = 0;
       var eain = true
-      $(this).data('intervalRunning', true);
-      var self = this;
-      var it = setInterval(function () {
-        $(self).css('background', 'rgb(255, 255,' + i + ')');
-        ease = -0.5 * (j * j) + 50
-        if (ease < 1) ease = 1;
-        if (eain) i = Math.round(i - ease);
-        else i = Math.round(i + ease);
-        j++;
-        if (i < 0) {
-          $(self).css('background', 'rgb(255, 255, 0)');
-          eain = false;
-          ease = 0;
-          j = 0;
-          i = 0;
-        } else if (i > 255) {
-          $(self).css('background', 'rgb(255, 255, 255)');
-          $(self).data('intervalRunning', false);
-          clearTimeout($(self).data('it'));
+    $(this).data('intervalRunning', true);
+  var self = this;
+  var it = setInterval(function () {
+    $(self).css('background', 'rgb(255, 255,' + i + ')');
+      ease = -0.5 * (j * j) + 50
+      if (ease < 1) ease = 1;
+      if (eain) i = Math.round(i - ease);
+      else i = Math.round(i + ease);
+      j++;
+      if (i < 0) {
+        $(self).css('background', 'rgb(255, 255, 0)');
+        eain = false;
+        ease = 0;
+        j = 0;
+        i = 0;
+      } else if (i > 255) {
+        $(self).css('background', 'rgb(255, 255, 255)');
+        $(self).data('intervalRunning', false);
+        clearTimeout($(self).data('it'));
 
-        }
-        }, 110);
-      $(this).data('it', it);
+      }
+      }, 110);
+    $(this).data('it', it);
     } else if ($(this).data('intervalRunning') && $(this).val() !== '') {
       clearTimeout($(this).data('it'));
       $(this).css('background', 'rgb(255, 255, 255)');
@@ -78,6 +78,7 @@ function validate(target) {
     }
   });
 }
+
 
 function init_page(callback) {
 
