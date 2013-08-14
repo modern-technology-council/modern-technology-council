@@ -1,5 +1,5 @@
 /* global $ */
-var drawTiles = function(list) {
+var drawTiles = function(list, callback) {
 
   $.each(list, function(index,obj) {
     var link = '';
@@ -45,7 +45,12 @@ var drawTiles = function(list) {
       });
     });  
   });
+  if(callback){
+    $('.tech-tile h5').ready(callback);
+  }
 }
+
+
 $.loadPanel = function(state) {
   partMenu();
   $.get(state+'.html', function(data) {

@@ -44,5 +44,10 @@ var list = [
 
 </div>
 <script>
-drawTiles(list);
+drawTiles(list, function() {
+  $('.tech-tile h5').ready(function() {
+    console.log($('.tech-tile h5').ready());
+  });
+  $('.tech-tile').css('height', $('.tech-tile h5').outerHeight() + 20*2 );    
+});
 </script>
