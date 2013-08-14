@@ -1,9 +1,9 @@
 <script>
 var list = [
 
-{ name: "World Wide Web Consortium (W3C)", "title":"", "desc":"", "link":"http://www.w3.org/" },
-{ name: "Mozilla Developer Network (MDN)", "title":"", "desc":"", "link":"http://developer.mozilla.org/" },
-{ name: "Chrome DevTools", "title":"", "desc":"", "link":"https://developers.google.com/chrome-developer-tools/" }
+{ name: "World Wide Web Consortium (W3C)", "title":"", "desc":"", "link":"http://www.w3.org/", "dataPopover" : "#helpGithub"  },
+{ name: "Mozilla Developer Network (MDN)", "title":"", "desc":"", "link":"http://developer.mozilla.org/" , "dataPopover" : "#helpGithub"},
+{ name: "Chrome DevTools", "title":"", "desc":"", "link":"https://developers.google.com/chrome-developer-tools/" , "dataPopover" : "#helpGithub"}
 
 ]
 
@@ -17,6 +17,9 @@ var list = [
 
   </div>
 
+  <div id='helpGithub' class='popout-fill'>
+    <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
+  </div>
 
 </div>
 <script>
