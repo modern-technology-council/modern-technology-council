@@ -152,6 +152,7 @@ a {
 }
 .popout h5 {
   display: block;
+  margin-bottom: 1em;
 }
 .popout-remove {
   position: absolute;
