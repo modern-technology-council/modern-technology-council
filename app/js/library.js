@@ -65,6 +65,15 @@ var drawTiles = function(list, callback) {
       });   
       var moveDiv = $('<div class="popout well">');
       moveDiv.html($(this).html());
+      var exit = $('<span class="glyphicon glyphicon-remove popout-remove">');
+      exit.on('click', function(){
+        $(document).off('click');
+        $('.popout').html($('.popout').data('origHtml'));
+        $('.popout').animate($('.popout').data('origCss'), function(){
+          $(this).remove();
+        });   
+      });
+      moveDiv.append(exit);
       moveDiv.data('origHtml', $(this).html());
       var extra = $(obj.dataPopover).html();
       $('body').append(moveDiv);
