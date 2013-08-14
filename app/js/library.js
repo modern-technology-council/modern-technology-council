@@ -51,7 +51,7 @@ var drawTiles = function(list, callback) {
 }
 
 
-$.loadPanel = function(state) {
+$.loadPanel = function(state,callback) {
   partMenu();
   $.get(state+'.html', function(data) {
     $('#banner')
@@ -61,7 +61,10 @@ $.loadPanel = function(state) {
       'z-index': 1,
       'height': $(document).height()*.8
     })
-  .fadeIn();
+  .fadeIn(function() {
+    $(document).trigger( 'panelReady' );
+    if(callback) callback();
+  });
   });
 } 
 
