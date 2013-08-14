@@ -1,3 +1,51 @@
+/* global $ */
+var drawTiles = function(list) {
+
+  $.each(list, function(index,obj) {
+    var link = '';
+    if(obj.link.length>0) {
+      link = '<a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>';
+    }
+    $('<div class="well col-3 tech-tile data-popout="' + obj.dataPopover + '"><h5>'+obj.name+'</h5>'+link+'</div>')
+    .appendTo('#current-technology')
+    .on('click', function(e) {
+      console.log('click');
+      e.stopPropagation();
+      var self = $(this);
+      $(document).off('click');
+      $('.popout').html($('.popout').data('origHtml'));
+      $('.popout').animate($('.popout').data('origCss'), function(){
+        $(this).remove();
+      });   
+      moveDiv = $('<div class="popout well">');
+      moveDiv.html($(this).html());
+      moveDiv.data('origHtml', $(this).html());
+      extra = $(obj.dataPopover).html();
+      $('body').append(moveDiv);
+      var origCss = {
+        left: self.position().left,
+    top: self.position().top,
+    width: self.outerWidth(),
+    height: self.outerHeight()
+      };
+      moveDiv.css(origCss);
+      moveDiv.data('origCss', origCss)
+        moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
+          $(this).append(extra);
+          $(document).on('click', function(){
+            $('.popout').html(self.html());
+            $('.popout').animate(origCss, function(){
+              $(this).remove();
+            });
+            $(document).off('click');
+          });
+        });
+      moveDiv.on('click', function(e){
+        e.stopPropagation();
+      });
+    });  
+  });
+}
 $.loadPanel = function(state) {
   partMenu();
   $.get(state+'.html', function(data) {
@@ -11,6 +59,7 @@ $.loadPanel = function(state) {
   .fadeIn();
   });
 } 
+
 function partMenu() {
   if(parted === false) {
     parted = true;

@@ -20,36 +20,5 @@ var list = [
 
 </div>
 <script>
-console.log(list);
-$.each(list, function(index,obj) {
-    var link;
-    if(obj.link.length>0) {
-    link = '<a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>';
-    }
-    $('#current-technology').append('<div class="well col-3 tech-tile"><h5>'+obj.name+'</h5>'+link+'</div>');
-    });
-
-//$('.tech-tile').on('click', popOut); 
-$('.tech-tile').on('click', function(e) {
-    e.stopPropagation();
-    $(document).off('click');
-    $('.popout').remove();
-    moveDiv = $('<div class="popout well">');
-    moveDiv.html($(this).html());
-    $('body').append(moveDiv);
-    moveDiv.css({left: $(this).position().left, top: $(this).position().top, width: $(this).width()})
-    moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
-      $(document).on('click', function(){
-        $('.popout').remove();
-        $(document).off('click');
-        });
-      });
-    moveDiv.on('click', function(e){
-      e.stopPropagation();
-      });
-    });  
-$('.tech-tile a').on('click', function(e) {
-  e.stopPropagation();
-  document.location.href=$(this).attr('href');
-    });
+drawTiles(list);
 </script>
