@@ -1,4 +1,57 @@
-$.loadPanel = function(state) {
+/* global $ */
+var drawTiles = function(list, callback) {
+
+  $.each(list, function(index,obj) {
+    var link = '';
+    if(obj.link.length>0) {
+      link = '<a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>';
+    }
+    $('<div class="well col-3 tech-tile data-popout="' + obj.dataPopover + '"><h5>'+obj.name+'</h5>'+link+'</div>')
+    .appendTo('#current-technology')
+    .on('click', function(e) {
+      console.log('click');
+      e.stopPropagation();
+      var self = $(this);
+      $(document).off('click');
+      $('.popout').html($('.popout').data('origHtml'));
+      $('.popout').animate($('.popout').data('origCss'), function(){
+        $(this).remove();
+      });   
+      moveDiv = $('<div class="popout well">');
+      moveDiv.html($(this).html());
+      moveDiv.data('origHtml', $(this).html());
+      extra = $(obj.dataPopover).html();
+      $('body').append(moveDiv);
+      var origCss = {
+        left: self.position().left,
+    top: self.position().top,
+    width: self.outerWidth(),
+    height: self.outerHeight()
+      };
+      moveDiv.css(origCss);
+      moveDiv.data('origCss', origCss)
+        moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
+          $(this).append(extra);
+          $(document).on('click', function(){
+            $('.popout').html(self.html());
+            $('.popout').animate(origCss, function(){
+              $(this).remove();
+            });
+            $(document).off('click');
+          });
+        });
+      moveDiv.on('click', function(e){
+        e.stopPropagation();
+      });
+    });  
+  });
+  if(callback){
+    $('.tech-tile h5').ready(callback);
+  }
+}
+
+
+$.loadPanel = function(state,callback) {
   partMenu();
   $.get(state+'.html', function(data) {
     $('#banner')
@@ -8,9 +61,13 @@ $.loadPanel = function(state) {
       'z-index': 1,
       'height': $(document).height()*.8
     })
-  .fadeIn();
+  .fadeIn(function() {
+    $(document).trigger( 'panelReady' );
+    if(callback) callback();
+  });
   });
 } 
+
 function partMenu() {
   if(parted === false) {
     parted = true;
@@ -48,29 +105,29 @@ function validate(target) {
       var ease = 0;
       var j = 0;
       var eain = true
-      $(this).data('intervalRunning', true);
-      var self = this;
-      var it = setInterval(function () {
-        $(self).css('background', 'rgb(255, 255,' + i + ')');
-        ease = -0.5 * (j * j) + 50
-        if (ease < 1) ease = 1;
-        if (eain) i = Math.round(i - ease);
-        else i = Math.round(i + ease);
-        j++;
-        if (i < 0) {
-          $(self).css('background', 'rgb(255, 255, 0)');
-          eain = false;
-          ease = 0;
-          j = 0;
-          i = 0;
-        } else if (i > 255) {
-          $(self).css('background', 'rgb(255, 255, 255)');
-          $(self).data('intervalRunning', false);
-          clearTimeout($(self).data('it'));
+    $(this).data('intervalRunning', true);
+  var self = this;
+  var it = setInterval(function () {
+    $(self).css('background', 'rgb(255, 255,' + i + ')');
+      ease = -0.5 * (j * j) + 50
+      if (ease < 1) ease = 1;
+      if (eain) i = Math.round(i - ease);
+      else i = Math.round(i + ease);
+      j++;
+      if (i < 0) {
+        $(self).css('background', 'rgb(255, 255, 0)');
+        eain = false;
+        ease = 0;
+        j = 0;
+        i = 0;
+      } else if (i > 255) {
+        $(self).css('background', 'rgb(255, 255, 255)');
+        $(self).data('intervalRunning', false);
+        clearTimeout($(self).data('it'));
 
-        }
-        }, 110);
-      $(this).data('it', it);
+      }
+      }, 110);
+    $(this).data('it', it);
     } else if ($(this).data('intervalRunning') && $(this).val() !== '') {
       clearTimeout($(this).data('it'));
       $(this).css('background', 'rgb(255, 255, 255)');
@@ -78,6 +135,7 @@ function validate(target) {
     }
   });
 }
+
 
 function init_page(callback) {
 
