@@ -6,7 +6,7 @@ var list = [
 { name: "Cascading Style Sheets (CSS3)", "title":"", "desc":"", "link":"" , "dataPopover":"#helpGithub" },
 { name: "Scripted Graphics &lt;canvas&gt;", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "JavaScript", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
-{ name: "jQuery", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "jQuery", "title":"", "desc":"", "link":"http://api.jquery.com/", "dataPopover":"#tech-tile-jQuery"  },
 { name: "Document Object Model (DOM)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "Shadow DOM", "title":"Custom Elements", "desc":"see polymer-project.org", "link":"", "dataPopover":"#helpGithub"  },
 { name: "JavaScript Object Notation (JSON)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
@@ -42,10 +42,12 @@ var list = [
     <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
   </div>
 
+  <div id="tech-tile-jQuery" class="popout-fill">
+    <p><a href="https://github.com/jquery/jquery-color"><span class="glyphicon glyphicon-link"></span></a> Background color manipulation and animation support, so you don't need to pull-in the full jQuery UI</p>
+    <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
+  </div>
+
 </div>
 <script>
 drawTiles(list);
-$(document).on('panelReady', function() {
-  $('.tech-tile').outerHeight( $('.tech-tile h5').outerHeight() + 20*2 );
-});
 </script>

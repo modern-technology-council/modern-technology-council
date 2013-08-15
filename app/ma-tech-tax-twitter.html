@@ -1,14 +1,41 @@
-<h2>MA Tech Tax Resources</h2>
+<h2>MA Tech Tax Resources 
+    <a href="https://twitter.com/intent/tweet?button_hashtag=TechTax&text=Vote%20Injunction" class="twitter-hashtag-button" data-related="myimedia" data-url="http://alt236.org/#/Tech_Tax">Vote Injunction!</a>
+</h2>
+<h3>August 15, 2013</h3>
 <ul class="links">
+  <li><a href="http://www.bostonglobe.com/business/2013/08/14/state-senator-moves-repeal-software-tax/DxD5JajbDTvYJ4JqVSynbJ/story.html">
+    Dem. state Senator Karen Spilka filed bill to repeal the Software Service Tax</a>
+  </li>
+  <li><a href="http://bostinno.streetwise.co/2013/08/14/two-possible-remedies-to-the-mass-techtax-initiative-or-injunction/">
+    Two Possible Remedies to the Mass. #TechTax: Initiative or Injunction?</a>
+  </li>
+</ul>
+<div class="container more-resources">Show more.. <span class="glyphicon glyphicon-chevron-down"></span></div>
+<div class="links collapse" id="more-resources">
+<ul> 
+  <li><a href="http://www.mass.gov/dor/docs/dor/law-changes/faqss-computer-software-2013.pdf">mass.gov Q&amp;A</a></li>
   <li><a href="http://archive.constantcontact.com/fs154/986596086265/archive/1114458597612.html">Mass TLC CEO on the Tech Tax</a></li>
   <li><a href="https://docs.google.com/spreadsheet/ccc?key=0AiFlY3dGhGDcdEFBNEVnUG1IWXNKZVkxVFRkTHlaTXc&usp=sharing">Community MA Tech Tax Table</a></li>
   <li><a href="http://www.capecodtoday.com/article/2013/08/07/21070-cape-cod-technology-council-others-launch-campaign-repeal-new-computer-tax">Cape Cod Technology Council, others, launch campaign to repeal new Computer Tax</a></li>
   <li><a href="http://www.mhtc.org/news/actionalert1.asp">MA High Technology Council Post and Recent News</a></li>
-  <li><a href="http://repealtheitservicetax.com/">Repeal the New Massachusetts IT Service Tax</a></li>
+  <li><a href="http://repealtheitservicetax.com/">repealtheitservicetax.com</a></li>
   <li><a href="http://www.change.org/petitions/massachusetts-state-legislature-repeal-the-tax-on-it-services">Petition to repeal the law</a></li>
   <li><a href="https://www.facebook.com/RepealTheITServiceTax">On Facebook</a></li>
 </ul>
-<h2>Pulse on MA Tax</h2>
-<a class="twitter-timeline" href="https://twitter.com/search?q=MA+TECH+TAX" data-widget-id="364872426691117060">Tweets about "MA TECH TAX"</a>
+</div>
+<h2>Twitter Pulse on MA Tech Tax</h2>
+<a class="twitter-timeline" href="https://twitter.com/search?q=TECH+TAX" data-widget-id="364872426691117060">Tweets about "MA TECH TAX"</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
+<script>
+  $('.more-resources').on('click', function() {
+    $('#more-resources').collapse('toggle');
+    _gaq.push(['_trackEvent', 'Button', 'Tech Tax More', 'Show More in Ma Tech Tax']);
+  });
+  $('.links a').on('click', function(e) {
+   e.stopPropagation(); 
+    _gaq.push(['_trackEvent', 'External Link', $(this).attr('href')]);
+    document.link.href=$(this).attr('href');
+  });
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>

@@ -134,9 +134,7 @@ a {
   box-shadow: 0px 0px 19px #000;
   -webkit-box-shadow: 0px 0px 19px #000;
   -moz-box-shadow: 0px 0px 19px #000;
-}
-#technologies > div > div, .popout {
-  height: 85px;
+  overflow-y: auto;
 }
 #technologies div div h5, .popout {
   text-shadow:  1px 1px 5px rgba(103, 89, 166, .4);
@@ -145,13 +143,15 @@ a {
 .popout-fill {
   display: none;
 }
+div.tech-tile, div.popout {
+}
 .tech-tile h5, .popout h5  {
   font-size: 20px;
-  display:inline;
-  margin-right:7px;
+  display: inline;
+  overflow: hidden;
 }
 .popout h5 {
-  display: block;
+  margin-bottom: 1em;
 }
 .popout-remove {
   position: absolute;
