@@ -161,3 +161,8 @@ div.tech-tile, div.popout {
   top: 10px;
   right: 10px;
 }
+.twitter-header-button {
+  position: absolute;
+  top: 65px;
+  left: 14px;
+}
