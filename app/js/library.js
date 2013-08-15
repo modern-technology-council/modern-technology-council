@@ -50,12 +50,12 @@ var drawTiles = function(list, callback) {
   $.each(list, function(index,obj) {
     var link = '';
     if(obj.link.length>0) {
-      link = '<a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>';
+      link = '  <a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>  ';
     }
-    $('<div class="well col-3 tech-tile data-popout="' + obj.dataPopover + '"><h5>'+obj.name+'</h5>'+link+'</div>')
+    $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5>'+obj.name+link+'</h5></div>')
     .appendTo('#current-technology')
     .on('click', function(e) {
-      console.log('click');
+      _gaq.push(['_trackEvent', 'Panel', obj.name, 'Show More in Ma Tech Tax']);
       e.stopPropagation();
       var self = $(this);
       $(document).off('click');
@@ -105,8 +105,13 @@ var drawTiles = function(list, callback) {
     });  
   });
   if(callback){
-    $('.tech-tile h5').ready(callback);
+    //$('.tech-tile h5').ready(callback);
   }
+  $(document).on('panelReady', function() {
+    var max = $('.tech-tile').height() + 25*2;
+    console.log(max);
+    $('.tech-tile').outerHeight(max)
+  });
 };
 function validate(target) {
   //$('input').data('intervalRunning', false);
