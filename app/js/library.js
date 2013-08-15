@@ -55,7 +55,7 @@ var drawTiles = function(list, callback) {
     $('<div class="well col-3 tech-tile data-popout="' + obj.dataPopover + '"><h5>'+obj.name+link+'</h5></div>')
     .appendTo('#current-technology')
     .on('click', function(e) {
-      console.log('click');
+      _gaq.push(['_trackEvent', 'Panel', obj.name, 'Show More in Ma Tech Tax']);
       e.stopPropagation();
       var self = $(this);
       $(document).off('click');
