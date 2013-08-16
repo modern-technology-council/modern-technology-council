@@ -81,14 +81,18 @@ var drawTiles = function(list, callback) {
       $('body').append(moveDiv);
       var origCss = {
         left: self.position().left,
-    top: self.position().top,
-    width: self.outerWidth(),
-    height: self.outerHeight()
+        top: self.position().top,
+        width: self.outerWidth(),
+        height: self.outerHeight()
       };
       moveDiv.css(origCss);
       moveDiv.data('origCss', origCss);
       moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
           $(this).append(extra);
+          var max = $(this).find('.panel-heading').outerHeight();
+          $(this).find('.panel-heading').outerHeight(max);
+          console.log(max);
+          $(this).find('.panel-body').css({top: max});
           $(document).on('click', function(){
             window.location.hash = '#/' + state[0]
             $('.popout').html(self.html());

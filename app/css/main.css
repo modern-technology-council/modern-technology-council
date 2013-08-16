@@ -148,7 +148,31 @@ a {
 }
 .popout div.panel {
   margin-top:1em;
+  height: 84%;
+  overflow: hidden;
+  position: relative;
 }
+
+.popout div.panel .panel-heading {
+  display: block;
+
+}
+
+.popout div.panel .panel-body {
+  overflow: auto;
+  position: absolute;
+  bottom: 50px;
+  top: 10%;
+}
+
+.popout div.panel .panel-footer {
+  height: 50px;
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 15px;
+}
+
 .tech-tile h5, .popout h5  {
   font-size: 20px;
   display: inline;
