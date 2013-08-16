@@ -4,6 +4,10 @@ This project is in extreme rapid development. Please excuse the lack/hack of arc
 Quick and dirty was the goal due to the rapid progress of the MT Council and immediate need for some web presence.
 
 
+iMedia Student Contributors
+---------------------------
+[Vanessa](https://github.com/iMediaVanessaSoares) of Greater New Beford Voc Tech High
+
 Short-Term Hackings
 ---------------------
 NOTE: We're still determining whether or not to use a mature framework in order to allow a better entry-level for our students.
