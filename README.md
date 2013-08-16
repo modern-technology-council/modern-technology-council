@@ -22,10 +22,11 @@ Additional controls are added in the html template files.
 ``` $(document).on('panelReady', callback) ```
 gives you access to the DOM after the page is loaded. Required due to the 200ms fadeIn().
 
-
 Supporting functions are found in [app/js/library.js](/app/js/library.js).
 
 You only need to modify the corresponding html template and css to make changes or create a new template if required.
+
+set ```resizeOveride=true``` in your console to stop the annoying resize reload.
 
 
 
