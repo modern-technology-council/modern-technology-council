@@ -7,6 +7,7 @@ var screen_width = $(document).width();
 var screen_height = $(document).height();
 var center_x = screen_width / 2;
 var center_y = screen_height / 2;
+var currentState = '';
 var parted = false;
 var menu = [
   'Modern Technology',
@@ -37,85 +38,65 @@ $(window).on('resize', function() {
 
 
 
-init_page(function() {
-
-  /*
-     $(window).resize(function() {
-
-     var w = $(window);
-     console.log(w); 
-     center_x = w.width()/2;
-     center_y = w.height()/2;
-     $('.left').css({left: center_x-60, top: center_y-34});
-     $('.right').css({left: center_x+50, top: center_y-34});
-     $('#myCanvas').css({width:w.width(),height:w.height()});
-     });
-     */
-
-});
+init_page();
 
 
 function changeState() {
 
-  var state = window.location.hash.substring(1);
+  var state = window.location.hash.substring(2).split('/')[0];
   var content;
 
-  if($('#twitter-wjs')) { $('#twitter-wjs').remove(); }
-  $('div#modal').hide();
-  $('#banner').fadeOut();
+  if(state != currentState) {
+    if($('#twitter-wjs')) { $('#twitter-wjs').remove(); }
+    $('div#modal').hide();
+    $('#banner').fadeOut();
 
+    switch(state) {
+      case 'Tech_Tax':
+        partMenu();
+        $.get('../ma-tech-tax-twitter.html', function(data) {
+          $('#modal-content').html(data);
+          $('div#modal').show(400);
+        });
+        break;
 
-  switch(state) {
-    case '/Tech_Tax':
-      partMenu();
-      $.get('../ma-tech-tax-twitter.html', function(data) {
-        $('#modal-content').html(data);
+      case 'Minutes':
+        partMenu();
+        $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
+        $('#modal-content').prepend('<button><span class="glyphicon glyphicon-print"></span> Printable Version</button>')
+          .on('click', function() {
+            // here comes the ugly (for now)
+            alert('Use Ctrl+P on the next window');
+            var height = $(window).height();
+            var width = $(window).width()*.8;
+            window.open('https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub','print',
+              'height='+height+',width='+width+',top=0,left=0,toolbar=yes,location=yes');
+          });
         $('div#modal').show(400);
-      });
-      break;
+        break;
 
-    case '/Minutes':
-      partMenu();
-      $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
-      $('#modal-content').prepend('<button><span class="glyphicon glyphicon-print"></span> Printable Version</button>')
-        .on('click', function() {
-          // here comes the ugly (for now)
-          alert('Use Ctrl+P on the next window');
-          var height = $(window).height();
-          var width = $(window).width()*.8;
-          window.open('https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub','print',
-            'height='+height+',width='+width+',top=0,left=0,toolbar=yes,location=yes');
-        });
-      $('div#modal').show(400);
-      break;
-
-    case '/Technology_Councils':
-      $.loadPanel(state);
-      break; 
-
-    case '/Schedule':
-partMenu();
-      $.get(state+'.html', function(data) {
-        $('#banner')
-          .hide()
-          .html(data)
-          .fadeIn();
-      });
-      $.loadPanel(state);
-      break;
-
-    default:  
-      // BAD!!
-      // Check if file exists and load on success.
-      // TODO: check if requesting file or if hashtag is empty
-      $.get(state+'.html').done(function() {
+      case 'Technology_Councils':
         $.loadPanel(state);
-      }).fail(function() {
-        $('.close').parent().hide(function() {
-          window.location.hash='/'; 
+        break; 
+
+      case 'Schedule':
+        $.loadPanel(state);
+        break;
+
+      default:  
+        // BAD!!
+        // Check if file exists and load on success.
+        // TODO: check if requesting file or if hashtag is empty
+        $.get(state+'.html').done(function() {
+          $.loadPanel(state);
+        }).fail(function() {
+          $('.close').parent().hide(function() {
+            window.location.hash='/'; 
+          });
         });
-      });
+    }
   }
+  currentState = state
 
 }
 

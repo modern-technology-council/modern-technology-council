@@ -46,15 +46,16 @@ function returnMenu() {
 }
 
 var drawTiles = function(list, callback) {
-
+  var state = window.location.hash.substring(2).split('/');
   $.each(list, function(index,obj) {
     var link = '';
     if(obj.link.length>0) {
       link = '  <a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>  ';
     }
-    $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5>'+obj.name+link+'</h5></div>')
-    .appendTo('#current-technology')
+    var tile = $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5 class="clearfix">'+obj.name+link+'</h5></div>')
+    tile.appendTo('#current-technology')
     .on('click', function(e) {
+      window.location.hash = '#/' + state[0] + '/' + encodeURI(obj.name)
       _gaq.push(['_trackEvent', 'Panel', obj.name, 'Show More in Ma Tech Tax']);
       e.stopPropagation();
       var self = $(this);
@@ -67,6 +68,7 @@ var drawTiles = function(list, callback) {
       moveDiv.html($(this).html());
       var exit = $('<span class="glyphicon glyphicon-remove popout-remove">');
       exit.on('click', function(){
+        window.location.hash = '#/' + state[0]
         $(document).off('click');
         $('.popout').html($('.popout').data('origHtml'));
         $('.popout').animate($('.popout').data('origCss'), function(){
@@ -79,15 +81,20 @@ var drawTiles = function(list, callback) {
       $('body').append(moveDiv);
       var origCss = {
         left: self.position().left,
-    top: self.position().top,
-    width: self.outerWidth(),
-    height: self.outerHeight()
+        top: self.position().top,
+        width: self.outerWidth(),
+        height: self.outerHeight()
       };
       moveDiv.css(origCss);
       moveDiv.data('origCss', origCss);
       moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
           $(this).append(extra);
+          var max = $(this).find('.panel-heading').outerHeight();
+          $(this).find('.panel-heading').outerHeight(max);
+          console.log(max);
+          $(this).find('.panel-body').css({top: max});
           $(document).on('click', function(){
+            window.location.hash = '#/' + state[0]
             $('.popout').html(self.html());
             $('.popout').animate(origCss, function(){
               $(this).remove();
@@ -103,6 +110,11 @@ var drawTiles = function(list, callback) {
       e.stopPropagation();
       document.location.href=$(this).attr('href');
     });  
+    if(obj.name === decodeURI(state[1])) {
+      $(document).on('tileResized', function() {
+          tile.click();
+      });
+    }
   });
   if(callback){
     //$('.tech-tile h5').ready(callback);
@@ -111,6 +123,7 @@ var drawTiles = function(list, callback) {
     var max = $('.tech-tile').height() + 25*2;
     console.log(max);
     $('.tech-tile').outerHeight(max)
+    $(document).trigger('tileResized');
   });
 };
 function validate(target) {
@@ -158,7 +171,7 @@ function validate(target) {
 }
 
 
-function init_page(callback) {
+function init_page() {
 
   setTimeout(function () {
     draw_menu_circles(center_x, center_y, 175, function() {
@@ -237,5 +250,4 @@ function init_page(callback) {
 
   }
 
-  callback();
 }
