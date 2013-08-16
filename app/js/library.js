@@ -171,7 +171,7 @@ function validate(target) {
 }
 
 
-function init_page(callback) {
+function init_page() {
 
   setTimeout(function () {
     draw_menu_circles(center_x, center_y, 175, function() {
@@ -250,5 +250,4 @@ function init_page(callback) {
 
   }
 
-  callback();
 }
