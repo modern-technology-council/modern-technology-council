@@ -189,9 +189,22 @@ a {
 }
 .twitter-header-button {
   position: absolute;
-  top: 65px;
+  top: 70px;
   left: 14px;
 }
+#favorites {
+  position: absolute;
+  top: 62px;
+  left: 110px;
+  display: none;
+}
+
+#favorites .fav-glyph
+{
+  padding-top: 3px;
+  padding-left: 5px;
+}
+
 .panel-footer button {
   margin-left: 1em;
 }

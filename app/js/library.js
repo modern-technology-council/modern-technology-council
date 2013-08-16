@@ -52,14 +52,25 @@ var drawTiles = function(list, callback) {
     if(obj.link.length>0) {
       link = '  <a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>  ';
     }
-    var tile = $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5 class="clearfix">'+obj.name+link+'</h5></div>')
-    tile.appendTo('#current-technology')
-    .on('click', function(e) {
+    var tile = $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5 class="clearfix">'+obj.name+link+'</h5></div>');
+    tile.draggable({
+      helper: 'clone',
+      revert: true,
+      start: function(e) {
+        $('.ui-draggable-dragging').off('click')
+        $('.ui-draggable-dragging').width(tile.width());
+        $('.ui-draggable-dragging').data('title', obj.name);
+        $('.ui-draggable-dragging').data('link', '#/' + state[0] + '/' + encodeURI(obj.name));
+      }
+    });
+    var clicker = function(e) {
+      tile.off('click')
+      console.log('clicked');
       window.location.hash = '#/' + state[0] + '/' + encodeURI(obj.name)
       _gaq.push(['_trackEvent', 'Panel', obj.name, 'Show More in Ma Tech Tax']);
       e.stopPropagation();
       var self = $(this);
-      $(document).off('click');
+      $(document).off('.popout-remove');
       $('.popout').html($('.popout').data('origHtml'));
       $('.popout').animate($('.popout').data('origCss'), function(){
         $(this).remove();
@@ -69,7 +80,7 @@ var drawTiles = function(list, callback) {
       var exit = $('<span class="glyphicon glyphicon-remove popout-remove">');
       exit.on('click', function(){
         window.location.hash = '#/' + state[0]
-        $(document).off('click');
+        $(document).off('.popout-remove');
         $('.popout').html($('.popout').data('origHtml'));
         $('.popout').animate($('.popout').data('origCss'), function(){
           $(this).remove();
@@ -91,6 +102,7 @@ var drawTiles = function(list, callback) {
       size = ((size > 75) ? 75 : size)
       size = ((size < 50) ? 50 : size)
       moveDiv.animate({width: size + '%', height: size + '%', top: ((100 - size)/2) + '%', left: ((100-size)/2) + '%'}, function() {
+          tile.on('click', clicker);
           $(this).append(extra);
           var max = $(this).find('.panel-heading').outerHeight();
           $(this).find('.panel-heading').outerHeight(max);
@@ -102,19 +114,22 @@ var drawTiles = function(list, callback) {
             size = ((size < 50) ? 50 : size)
             moveDiv.css({width: size + '%', height: size + '%', top: ((100 - size)/2) + '%', left: ((100-size)/2) + '%'});
           });
-          $(document).on('click', function(){
+          $(document).on('click.popout-remove', function(){
+            console.log('click');
             window.location.hash = '#/' + state[0]
             $('.popout').html(self.html());
             $('.popout').animate(origCss, function(){
               $(this).remove();
             });
-            $(document).off('click');
+            $(document).off('.popout-remove');
           });
         });
       moveDiv.on('click', function(e){
         e.stopPropagation();
       });
-    })
+    }
+    tile.appendTo('#current-technology')
+    .on('click', clicker)
     .find('a').on('click',function(e) {
       e.stopPropagation();
       document.location.href=$(this).attr('href');
@@ -124,6 +139,11 @@ var drawTiles = function(list, callback) {
           tile.click();
       });
     }
+    $(window).on('hashchange', function() {
+       var state = window.location.hash.substring(2).split('/');
+       if(decodeURI(state[1]) === obj.name)
+         tile.click();
+    });
   });
   if(callback){
     //$('.tech-tile h5').ready(callback);
@@ -179,6 +199,76 @@ function validate(target) {
   });
 }
 
+function getFavorites() {
+  var favString = localStorage["favorites"];
+  if(favString != undefined || favString != null)
+    return JSON.parse(localStorage["favorites"]);
+  else
+    return [];
+}
+
+function addFavorite(title, link) {
+  var favorites = getFavorites();
+  var exists = false;
+  var added = false;
+  for (i in favorites) {
+    if (favorites[i].link === link)
+    {
+      exists = true;
+      break;
+    }
+  }
+  console.log(favorites);
+  if (!exists && link != undefined && title != undefined)
+  {
+    favorites.push({link: link, title: title});
+    added = true;
+  }
+  console.log(favorites);
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  return added;
+}
+
+
+function removeFavorite(loc) {
+  var favorites = getFavorites();
+  favorites.splice(loc, 1);
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function prepFavorites() {
+  var favorites = getFavorites();
+  if (favorites.length > 0) {
+    var $favorites = $('#favorites');
+    $favorites.on('click', function(){
+      var self = $(this);
+      $(document).off('.popout-remove');
+      $('.popout').html($('.popout').data('origHtml'));
+      $('.popout').animate($('.popout').data('origCss'), function(){
+        $(this).remove();
+      });   
+    });
+    $favorites.show();
+    $favorites.find('ul').html('');
+    $.each(favorites, function(key){
+      console.log(this);
+      var self = this;
+      var link = $('<li><a>' + self.title + '<span class="glyphicon glyphicon-remove pull-right fav-glyph"></span></a></li>');
+      link.find('a').on('click', function(e) {
+        console.log('in here');
+        window.location = self.link; 
+      });
+      link.find('.glyphicon').on('click', function(e) {
+        e.stopPropagation();
+        removeFavorite(key);
+        prepFavorites();
+      });
+      $favorites.find('ul').append(link);
+    });
+  } else {
+    $('#favorites').hide();
+  }
+}
 
 function init_page() {
 
@@ -258,5 +348,20 @@ function init_page() {
     if (logo_velocity < 1) { logo_velocity = 1; }
 
   }
+
+  prepFavorites();
+
+  $('#header').droppable({
+    tolerance: 'touch',
+    drop: function(e) {
+      var data = $(e.toElement).data();
+      $(e.toElement).remove();
+      var added = addFavorite(data.title, data.link);
+      if (added) {
+        prepFavorites();
+        $('#favorites button').effect('highlight', 1000);
+      }
+    }
+  });
 
 }

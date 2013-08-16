@@ -1,7 +1,5 @@
 /*global $:false, jQuery:false, document:false, window:false */
 
-$('head').append('<script src="js/circles.js"></script>');
-$('head').append('<script src="js/library.js"></script>');
 
 var screen_width = $(document).width();
 var screen_height = $(document).height();
