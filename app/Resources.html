@@ -1,22 +1,3 @@
-<script>
-var list = [
-
-{ "name": "Local Events", "title": "", "desc": "", "link": "", "dataPopover" : "#pop-events"  },
-{ "name": "World Wide Web Consortium (W3C)", "title": "", "desc": "", "link": "http://www.w3.org/", "dataPopover" : "#helpGithub"  },
-{ "name": "Mozilla Developer Network (MDN)", "title": "", "desc": "", "link": "http://developer.mozilla.org/" , "dataPopover" : "#helpGithub"},
-{ "name": "Chrome DevTools", "title": "", "desc": "", "link": "https://developers.google.com/chrome-developer-tools/" , "dataPopover" : "#helpGithub"},
-{ "name": "Khan Academy", "desc":"", "link": "https://www.khanacademy.org/", "desc": "", "dataPopover" : "#helpGithub"},
-{ "name": "CODE.org", "title": "", "desc": "", "link": "http://www.code.org/" , "dataPopover" : "#helpGithub"},
-{ "name": "Koding", "title": "", "desc": "", "link": "http://koding.com/" , "dataPopover" : "#pop-koding"},
-{ "name": "iMedia School of Modern Technology", "title": "", "desc": "", "link": "http://www.myimedia.com/" , "dataPopover" : "#pop-imedia"},
-{ "name": "JSFiddle", "title": "", "desc": "", "link": "http://www.jsfiddle.net/" , "dataPopover" : "#helpGithub"},
-{ "name": "CodePen", "title": "", "desc": "", "link": "http://codepen.io/" , "dataPopover" : "#helpGithub"},
-{ "name": "JSBin", "title": "", "desc": "", "link": "http://jsbin.net/" , "dataPopover" : "#helpGithub"}
-
-
-];
-
-</script>
 <div class="container" id="technologies">
 
   <h3>Modern Technology Resources</h3>
@@ -31,7 +12,50 @@ var list = [
   </div>
 
   <div id="pop-imedia" class='popout-fill'>
-    <p>Stay tuned!</p>
+    <div class="panel col-4">
+      <div class="panel-heading">
+        <a href="/#/Resources/iMedia%20School%20of%20Modern%20Technology/Intro101/">Introduction to Modern Technology</a>
+      </div>
+      <div class="panel-body">
+        <p>This class is a must if your career involves technology, 
+        you are a business owner, or you are hiring or managing technologists. 
+        What is Modern Technology and how does it apply to you or your business?
+        </p> 
+      </div>
+      <div class="panel-footer text-right">
+        <button class="btn btn-primary btn-sm">More Info</button><button class="btn btn-primary btn-sm">Register</button>
+      </div>
+    </div>
+    <div class="panel col-5">
+      <div class="panel-heading">
+        Upcoming Classes
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>HTML Standards
+          <li>CSS Standards
+          <li>Programming (JavaScript)
+          <li>jQuery
+          <li>CSS Frameworks
+          <li>Linux with VM and VIM
+          <li>Distributed Version Control (Git)
+          <li>JavaScript Frameworks
+          <li>Node.js
+          <li>DOM
+          <li>Web Server Architecture (NGINX, Apache, Node)
+          <li>Databases (Relational and Non-Relational Map-Reduce)
+          <li>Models Views Controllers (MVC)
+          <li>API &amp; API Engineering
+          <li>REGEX
+          <li>Amazon Web Services (AWS)
+          <li>Connected Devices with Arduino (Requires C)
+          <li>Big Data (Data Mining, Data Storage, Data Analysis, Data Visualization)
+          <li>Project Requirements Gathering
+        </ul>
+      </div>
+      <div class="panel-footer text-right">
+      </div>
+    </div>
   </div>
 
   <div id="pop-koding" class="popout-fill">
@@ -54,5 +78,27 @@ var list = [
 
 </div>
 <script>
+var list = [
+
+{ "name": "Local Events", "title": "", "desc": "", "link": "", "dataPopover" : "#pop-events"  },
+{ "name": "World Wide Web Consortium (W3C)", "title": "", "desc": "", "link": "http://www.w3.org/", "dataPopover" : "#helpGithub"  },
+{ "name": "Mozilla Developer Network (MDN)", "title": "", "desc": "", "link": "http://developer.mozilla.org/" , "dataPopover" : "#helpGithub"},
+{ "name": "Chrome DevTools", "title": "", "desc": "", "link": "https://developers.google.com/chrome-developer-tools/" , "dataPopover" : "#helpGithub"},
+{ "name": "Khan Academy", "desc":"", "link": "https://www.khanacademy.org/", "desc": "", "dataPopover" : "#helpGithub"},
+{ "name": "CODE.org", "title": "", "desc": "", "link": "http://www.code.org/" , "dataPopover" : "#helpGithub"},
+{ "name": "Koding", "title": "", "desc": "", "link": "http://koding.com/" , "dataPopover" : "#pop-koding"},
+{ "name": "iMedia School of Modern Technology", "title": "", "desc": "", "link": "http://www.myimedia.com/" , "dataPopover" : "#pop-imedia"},
+{ "name": "JSFiddle", "title": "", "desc": "", "link": "http://www.jsfiddle.net/" , "dataPopover" : "#helpGithub"},
+{ "name": "CodePen", "title": "", "desc": "", "link": "http://codepen.io/" , "dataPopover" : "#helpGithub"},
+{ "name": "JSBin", "title": "", "desc": "", "link": "http://jsbin.net/" , "dataPopover" : "#helpGithub"}
+
+
+];
+var classes = [
+
+{ "name": "Local Events", "title": "", "desc": "", "link": "", "style":"Lecture", "duration":"4"  }
+  
+
+];
 drawTiles(list);
 </script>

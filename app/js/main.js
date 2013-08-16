@@ -38,22 +38,7 @@ $(window).on('resize', function() {
 
 
 
-init_page(function() {
-
-  /*
-     $(window).resize(function() {
-
-     var w = $(window);
-     console.log(w); 
-     center_x = w.width()/2;
-     center_y = w.height()/2;
-     $('.left').css({left: center_x-60, top: center_y-34});
-     $('.right').css({left: center_x+50, top: center_y-34});
-     $('#myCanvas').css({width:w.width(),height:w.height()});
-     });
-     */
-
-});
+init_page();
 
 
 function changeState() {

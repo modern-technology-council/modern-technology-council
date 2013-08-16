@@ -146,7 +146,8 @@ a {
 .popout-fill {
   display: none;
 }
-div.tech-tile, div.popout {
+.popout div.panel {
+  margin-top:1em;
 }
 .tech-tile h5, .popout h5  {
   font-size: 20px;
@@ -165,4 +166,7 @@ div.tech-tile, div.popout {
   position: absolute;
   top: 65px;
   left: 14px;
+}
+.panel-footer button {
+  margin-left: 1em;
 }

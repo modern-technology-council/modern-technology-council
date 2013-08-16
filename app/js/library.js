@@ -52,7 +52,7 @@ var drawTiles = function(list, callback) {
     if(obj.link.length>0) {
       link = '  <a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>  ';
     }
-    var tile = $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5>'+obj.name+link+'</h5></div>')
+    var tile = $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5 class="clearfix">'+obj.name+link+'</h5></div>')
     tile.appendTo('#current-technology')
     .on('click', function(e) {
       window.location.hash = '#/' + state[0] + '/' + encodeURI(obj.name)
