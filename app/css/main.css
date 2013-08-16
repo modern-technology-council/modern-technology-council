@@ -1,17 +1,24 @@
 body {
   overflow: hidden;
 }
+pre {
+  white-space: pre-wrap;
+  word-wrap: normal;
+  word-break: normal;
+}
 div#mission p {
   display: none;
 }
 div#mission p.active {
-  display: inline;
+  display: table;
 }
 
 iframe {
   width: 99%;
-  height: 99%;
   border: none;
+}
+#modal-content iframe {
+  height: 90%;
 }
 .clearfix:before, .clearfix:after {
   content: " ";
@@ -33,9 +40,9 @@ iframe {
   height:104px;
 }
 #banner {
-  text-align: center;
   width: 75%;
   margin: auto;
+  overflow-y: auto;
 }
 ul.links li a:link {
   font-family: courier;
@@ -51,8 +58,7 @@ ul.links li a:hover {
 #mission {
   margin-top: 15px;
   font-size: 20px;
-  width: 33%;
-  min-width: 550px;
+  width: 43%;
 }
 div#modal {
   display: none;
@@ -122,4 +128,41 @@ a {
   opacity: 1;
   text-align: right;
   margin-bottom: 5px;
+}
+.popout {
+  position: fixed;
+  box-shadow: 0px 0px 19px #000;
+  -webkit-box-shadow: 0px 0px 19px #000;
+  -moz-box-shadow: 0px 0px 19px #000;
+}
+.scroll-y {
+  height: 95%;
+  overflow-y: auto;
+}
+#technologies div div h5, .popout {
+  text-shadow:  1px 1px 5px rgba(103, 89, 166, .4);
+  font-size: 17px;
+}
+.popout-fill {
+  display: none;
+}
+div.tech-tile, div.popout {
+}
+.tech-tile h5, .popout h5  {
+  font-size: 20px;
+  display: inline;
+  overflow: hidden;
+}
+.popout h5 {
+  margin-bottom: 1em;
+}
+.popout-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.twitter-header-button {
+  position: absolute;
+  top: 65px;
+  left: 14px;
 }

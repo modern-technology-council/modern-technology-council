@@ -8,7 +8,15 @@ var screen_height = $(document).height();
 var center_x = screen_width / 2;
 var center_y = screen_height / 2;
 var parted = false;
-var menu = [];
+var menu = [
+  'Modern Technology',
+  'Resources',
+  'Technology Councils',
+  'Tech Tax',
+  'Minutes',
+  'Schedule',
+  'RSVP',
+  'Mission'];
 var resize = false;
 
 $(window).on('resize', function() {
@@ -16,9 +24,9 @@ $(window).on('resize', function() {
     resize=true;
     $.get('modal-bootstrap.html', function(data) {
       $(data).appendTo('body')
-        .on('hidden.bs.modal', function() {
-          console.log('hidden');
-          document.location.reload();
+      .on('hidden.bs.modal', function() {
+        console.log('hidden');
+        document.location.reload();
       });
     });
     setTimeout(function() {
@@ -31,18 +39,18 @@ $(window).on('resize', function() {
 
 init_page(function() {
 
-/*
- $(window).resize(function() {
+  /*
+     $(window).resize(function() {
 
-  var w = $(window);
-  console.log(w); 
-  center_x = w.width()/2;
-  center_y = w.height()/2;
-  $('.left').css({left: center_x-60, top: center_y-34});
-  $('.right').css({left: center_x+50, top: center_y-34});
-  $('#myCanvas').css({width:w.width(),height:w.height()});
- });
-*/
+     var w = $(window);
+     console.log(w); 
+     center_x = w.width()/2;
+     center_y = w.height()/2;
+     $('.left').css({left: center_x-60, top: center_y-34});
+     $('.right').css({left: center_x+50, top: center_y-34});
+     $('#myCanvas').css({width:w.width(),height:w.height()});
+     });
+     */
 
 });
 
@@ -69,30 +77,43 @@ function changeState() {
     case '/Minutes':
       partMenu();
       $('#modal-content').html('<iframe src="https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub?embedded=true"></iframe>');
+      $('#modal-content').prepend('<button><span class="glyphicon glyphicon-print"></span> Printable Version</button>')
+        .on('click', function() {
+          // here comes the ugly (for now)
+          alert('Use Ctrl+P on the next window');
+          var height = $(window).height();
+          var width = $(window).width()*.8;
+          window.open('https://docs.google.com/document/d/10TKDRNRwbHY54qcdn-4vPyHChqmejl0CwinRQsgiklM/pub','print',
+            'height='+height+',width='+width+',top=0,left=0,toolbar=yes,location=yes');
+        });
       $('div#modal').show(400);
       break;
 
     case '/Technology_Councils':
-      content = '<div><h2>Collaborative efforts in progress.</h2></div>';
-      $('#banner')
-        .hide()
-        .html(content)
-        .fadeIn(800); 
+      $.loadPanel(state);
       break; 
 
     case '/Schedule':
-    	partMenu();
+partMenu();
       $.get(state+'.html', function(data) {
         $('#banner')
           .hide()
           .html(data)
           .fadeIn();
       });
+      $.loadPanel(state);
       break;
 
     default:  
-      $('.close').parent().hide(function() {
-        window.location.hash='/'; 
+      // BAD!!
+      // Check if file exists and load on success.
+      // TODO: check if requesting file or if hashtag is empty
+      $.get(state+'.html').done(function() {
+        $.loadPanel(state);
+      }).fail(function() {
+        $('.close').parent().hide(function() {
+          window.location.hash='/'; 
+        });
       });
   }
 
@@ -120,21 +141,22 @@ $(document).ready(function() {
   setInterval(function() {
     taglines.each(function(index, el){
 
-     if($(el).hasClass('active')){
-      //are we at the end of the list?
-      if(index == taglines.length - 1){
-        $(el).fadeOut(function() {
-          $(this).removeClass('active');
-          $(taglines[0]).fadeIn().addClass('active');   
-        });
-      }else{
-        $(el).fadeOut(function() {
-          $(this).removeClass('active').next().fadeIn().addClass('active');
-        });
-      } 
+      if($(el).hasClass('active')){
+        //are we at the end of the list?
+        if(index == taglines.length - 1){
+          $(el).fadeOut(function() {
+            $(this).removeClass('active');
+            $(taglines[0]).fadeIn().addClass('active');   
+          });
+        }else{
+          $(el).fadeOut(function() {
+            $(this).removeClass('active').next().fadeIn().addClass('active');
+          });
+        } 
 
-     }
+      }
     });
   },8000);
+
 
 });

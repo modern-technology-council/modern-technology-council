@@ -10,13 +10,18 @@
     "grunt-contrib-jshint": "~0.6.2",
     "jshint": "~2.1.9"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "winston": "~0.7.2",
+    "express": "~3.3.5",
+    "nodemailer": "~0.5.2",
+    "arg": "0.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/myimedia/modern-technology-council.git"
+    "url": "git://github.com/modern-technology-council/modern-technology-council.git"
   },
   "author": "Modern Technology Council",
   "license": "MIT",

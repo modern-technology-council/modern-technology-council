@@ -6,16 +6,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap-glyphicons.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
-<link href="/css/responsive-medium.css" rel="stylesheet">
+<link href="/css/responsive.css" rel="stylesheet">
 </head>
 <body>
 <div id="header" class="navbar">
   <h1 class="pull-left">Modern Technology Council</h1>
+  <div class="twitter-header-button">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.alt236.org" data-text="I support the Modern Technology Council" data-via="myimedia" data-hashtags="MTCouncil">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
   <div id="mission" class="navbar-text pull-right">
     <p>Addressing the gaps between Modern Technology, Education, Workforce, Awareness, and Open Standards</p>
     <p>Every business needs a Modern Technologist.</p>
     <p>Are you a certified Modern Technologist?</p>
+    <p>Open Source: If someone feels they can do a better job, let them. If they succeed, everyone benefits.</p>
   </div>
 </div>
 <div id="banner"></div>
@@ -25,21 +31,22 @@
   <div id="modal-content"></div>
 </div>
 <div>
-<script type="text/javascript">
-
+  <script src="/js/bootstrap.min.js"></script>
+  <script src='js/main.js'></script>
+  <script>
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-33181689-1']);
-_gaq.push(['_trackPageview']);
-
+_gaq.push(['_setAccount', 'UA-33181689-2']);
+_gaq.push(['_setAllowAnchor', true]);
+_gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
 (function() {
  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
  })();
-
+$(window).on('hashchange', function(){
+ _gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
+});
 </script>
-<script src="/js/bootstrap.min.js"></script>
-<script src='js/main.js'></script>
 </div>
 </body>
 </html>

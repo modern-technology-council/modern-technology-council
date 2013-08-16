@@ -1,4 +1,23 @@
- 
+/* global $, document */
+
+
+$.loadPanel = function(state,callback) {
+  partMenu();
+  $.get(state+'.html', function(data) {
+    $('#banner')
+    .hide()
+    .html(data)
+    .css({
+      'z-index': 1,
+      'height': $(document).height()*0.8
+    })
+  .fadeIn(function() {
+    $(document).trigger( 'panelReady' );
+    if(callback) { callback(); }
+  });
+  });
+}; 
+
 function partMenu() {
   if(parted === false) {
     parted = true;
@@ -26,12 +45,130 @@ function returnMenu() {
   parted = false;
 }
 
+var drawTiles = function(list, callback) {
+
+  $.each(list, function(index,obj) {
+    var link = '';
+    if(obj.link.length>0) {
+      link = '  <a href="'+obj.link+'"><span class="glyphicon glyphicon-link"></span></a>  ';
+    }
+    $('<div class="well col-3 tech-tile" data-popout="' + obj.dataPopover + '"><h5>'+obj.name+link+'</h5></div>')
+    .appendTo('#current-technology')
+    .on('click', function(e) {
+      _gaq.push(['_trackEvent', 'Panel', obj.name, 'Show More in Ma Tech Tax']);
+      e.stopPropagation();
+      var self = $(this);
+      $(document).off('click');
+      $('.popout').html($('.popout').data('origHtml'));
+      $('.popout').animate($('.popout').data('origCss'), function(){
+        $(this).remove();
+      });   
+      var moveDiv = $('<div class="popout well">');
+      moveDiv.html($(this).html());
+      var exit = $('<span class="glyphicon glyphicon-remove popout-remove">');
+      exit.on('click', function(){
+        $(document).off('click');
+        $('.popout').html($('.popout').data('origHtml'));
+        $('.popout').animate($('.popout').data('origCss'), function(){
+          $(this).remove();
+        });   
+      });
+      moveDiv.append(exit);
+      moveDiv.data('origHtml', $(this).html());
+      var extra = $(obj.dataPopover).html();
+      $('body').append(moveDiv);
+      var origCss = {
+        left: self.position().left,
+    top: self.position().top,
+    width: self.outerWidth(),
+    height: self.outerHeight()
+      };
+      moveDiv.css(origCss);
+      moveDiv.data('origCss', origCss);
+      moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
+          $(this).append(extra);
+          $(document).on('click', function(){
+            $('.popout').html(self.html());
+            $('.popout').animate(origCss, function(){
+              $(this).remove();
+            });
+            $(document).off('click');
+          });
+        });
+      moveDiv.on('click', function(e){
+        e.stopPropagation();
+      });
+    })
+    .find('a').on('click',function(e) {
+      e.stopPropagation();
+      document.location.href=$(this).attr('href');
+    });  
+  });
+  if(callback){
+    //$('.tech-tile h5').ready(callback);
+  }
+  $(document).on('panelReady', function() {
+    var max = $('.tech-tile').height() + 25*2;
+    console.log(max);
+    $('.tech-tile').outerHeight(max)
+  });
+};
+function validate(target) {
+  //$('input').data('intervalRunning', false);
+  //If you're fast enough, you can submit with empties. ;)
+  $(target + ' :input').each(function () {
+    if ($(this).val() === '' && !$(this).data('intervalRunning')) {
+      $.validated = false;
+      var i = 255;
+      var ease = 0;
+      var j = 0;
+      var eain = true;
+    $(this).data('intervalRunning', true);
+  var self = this;
+  var it = setInterval(function () {
+    $(self).css('background', 'rgb(255, 255,' + i + ')');
+      ease = -0.5 * (j * j) + 50;
+      if (ease < 1) { ease = 1; }
+      if (eain) { 
+        i = Math.round(i - ease);
+      }else{
+        i = Math.round(i + ease);
+      }
+      j++;
+      if (i < 0) {
+        $(self).css('background', 'rgb(255, 255, 0)');
+        eain = false;
+        ease = 0;
+        j = 0;
+        i = 0;
+      } else if (i > 255) {
+        $(self).css('background', 'rgb(255, 255, 255)');
+        $(self).data('intervalRunning', false);
+        clearTimeout($(self).data('it'));
+
+      }
+      }, 110);
+    $(this).data('it', it);
+    } else if ($(this).data('intervalRunning') && $(this).val() !== '') {
+      clearTimeout($(this).data('it'));
+      $(this).css('background', 'rgb(255, 255, 255)');
+      $(this).data('intervalRunning', false);
+    }
+  });
+}
 
 
 function init_page(callback) {
 
   setTimeout(function () {
-    draw_menu_circles(center_x, center_y, 175);
+    draw_menu_circles(center_x, center_y, 175, function() {
+      if(document.location.hash.length > 2) {
+        setTimeout(function() {
+          parted=false;
+          partMenu();
+        },2000);
+      } 
+    });
   }, 4000);
 
 
@@ -40,7 +177,7 @@ function init_page(callback) {
   }
 
   $('<span class="left brackets">{</span>').appendTo('body').hide();
-  $('<span class="right brackets">}</right>').appendTo('body').hide();
+    $('<span class="right brackets">}</right>').appendTo('body').hide();
   $('body').append('<canvas id="myCanvas" width="' + screen_width + '" height="' + screen_height + '" />');
 
 

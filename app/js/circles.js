@@ -30,17 +30,8 @@ function draw_circles(c, x, y, set_radius) {
 
 }
 
-function draw_menu_circles(x, y, set_radius) {
+function draw_menu_circles(x, y, set_radius, callback) {
 
-  var menu = [
-    '&#8734',
-  '&#8734',
-  'Technology Councils',
-  'Tech Tax',
-  'Minutes',
-  'Schedule',
-  '&#8734',
-  '&#8734'];
 
   var number_of_circles = 8;
   var step_angle = (Math.PI * 2) / number_of_circles;
@@ -49,7 +40,6 @@ function draw_menu_circles(x, y, set_radius) {
   function addMenuCircleTransition(element) {
     $(this).addClass('menu-circle-transition');   
     $(this).on('click', function() {
-      console.log($(this).find('a').attr('href'));
       document.location.href = $(this).find('a').attr('href');
     });
   }
@@ -72,5 +62,8 @@ function draw_menu_circles(x, y, set_radius) {
       left: (px - 50) + 'px',
       opacity: 1
       }, 1000, addMenuCircleTransition);
+  }
+  if(callback){
+    callback();
   }
 }

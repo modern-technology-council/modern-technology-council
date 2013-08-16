@@ -1,0 +1,53 @@
+<script>
+var list = [
+
+{ name: "Distributed Version Control (Git)", "title":"a.k.a. Source Code Management (SCM)", "desc":"", "link":"http://github.com/", "dataPopover":"#helpGithub" },
+{ name: "Hypertext Markup Language (HTML5)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub" },
+{ name: "Cascading Style Sheets (CSS3)", "title":"", "desc":"", "link":"" , "dataPopover":"#helpGithub" },
+{ name: "Scripted Graphics &lt;canvas&gt;", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "JavaScript", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "jQuery", "title":"", "desc":"", "link":"http://api.jquery.com/", "dataPopover":"#tech-tile-jQuery"  },
+{ name: "Document Object Model (DOM)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Shadow DOM", "title":"Custom Elements", "desc":"see polymer-project.org", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "JavaScript Object Notation (JSON)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Asynchronous JavaScript and XML (AJAX)", "title":"see XMLHttpRequest (XHR)", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Mapreduce", "title":"a.k.a JSON Document Database", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Model Views Controllers (MVC)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Application Programming Interface (API)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Open Source Hardware (Arduino)", "title":"programmable single-board microcontroller", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
+{ name: "Ember, Angular, Backbone", "title":"MVC/MDV Frameworks", "desc":"", "link":"", "dataPopover":"#helpGithub"  }
+
+]
+
+</script>
+<div class="container" id="technologies">
+
+  <h3>Modern Technology</h3>
+  <p><span class="glyphicon glyphicon-bullhorn"></span> This is an ever-changing list. If you feel we missed one or got one wrong, 
+  then <a href="/#/RSVP">join the Council</a> and contribute. <span class="glyphicon glyphicon-heart-empty"></span> You can also help us manage this list via <a href="">GitHub</a>.</p>
+  <div class="row-fluid clearfix" id="current-technology">
+
+  </div>
+
+  <div class="row-fluid clearfix">
+    <h3>Keep an eye on...</h3>
+    <div class="well col-3"><h5>Dart</h5></div>
+    <div class="well col-3"><h5>ASM</h5></div>
+    <div class="well col-3"><h5>Mesos</h5></div>
+  </div>
+
+  <div id='helpGithub' class='popout-fill'>
+    <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
+  </div>
+
+  <div id="tech-tile-jQuery" class="popout-fill">
+    <p><a href="https://github.com/jquery/jquery-color"><span class="glyphicon glyphicon-link"></span></a> Background color manipulation and animation support, so you don't need to pull-in the full jQuery UI</p>
+    <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
+  </div>
+
+</div>
+<script>
+drawTiles(list);
+</script>
