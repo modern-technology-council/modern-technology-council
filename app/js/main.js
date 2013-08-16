@@ -19,9 +19,10 @@ var menu = [
   'RSVP',
   'Mission'];
 var resize = false;
+var resizeOveride = false;
 
 $(window).on('resize', function() {
-  if(!resize && $(window).width() > 500) {
+  if(!resize && !resizeOveride && $(window).width() > 500) {
     resize=true;
     $.get('modal-bootstrap.html', function(data) {
       $(data).appendTo('body')
