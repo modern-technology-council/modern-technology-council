@@ -87,12 +87,21 @@ var drawTiles = function(list, callback) {
       };
       moveDiv.css(origCss);
       moveDiv.data('origCss', origCss);
-      moveDiv.animate({width: '50%', height: '50%', top: '25%', left: '25%'}, function() {
+      var size = (-5/264) * $(window).width() + 950/11
+      size = ((size > 75) ? 75 : size)
+      size = ((size < 50) ? 50 : size)
+      moveDiv.animate({width: size + '%', height: size + '%', top: ((100 - size)/2) + '%', left: ((100-size)/2) + '%'}, function() {
           $(this).append(extra);
           var max = $(this).find('.panel-heading').outerHeight();
           $(this).find('.panel-heading').outerHeight(max);
           console.log(max);
           $(this).find('.panel-body').css({top: max});
+          $(window).on('resize', function() {
+            var size = (-5/264) * $(window).width() + 950/11
+            size = ((size > 75) ? 75 : size)
+            size = ((size < 50) ? 50 : size)
+            moveDiv.css({width: size + '%', height: size + '%', top: ((100 - size)/2) + '%', left: ((100-size)/2) + '%'});
+          });
           $(document).on('click', function(){
             window.location.hash = '#/' + state[0]
             $('.popout').html(self.html());
