@@ -60,13 +60,13 @@ var drawTiles = function(list, callback) {
         $('.ui-draggable-dragging').off('click')
         $('.ui-draggable-dragging').width(tile.width());
         $('.ui-draggable-dragging').data('title', obj.name);
-        $('.ui-draggable-dragging').data('link', '#/' + state[0] + '/' + encodeURI(obj.name));
+        $('.ui-draggable-dragging').data('link', '#/' + state[0] + '/' +obj.name.replace(/\s/g, '_'))
       }
     });
     var clicker = function(e) {
       tile.off('click')
       console.log('clicked');
-      window.location.hash = '#/' + state[0] + '/' + encodeURI(obj.name)
+      window.location.hash = '#/' + state[0] + '/' + obj.name.replace(/\s/g, '_')
       _gaq.push(['_trackEvent', 'Panel', obj.name, 'Show More in Ma Tech Tax']);
       e.stopPropagation();
       var self = $(this);
@@ -134,14 +134,14 @@ var drawTiles = function(list, callback) {
       e.stopPropagation();
       document.location.href=$(this).attr('href');
     });  
-    if(obj.name === decodeURI(state[1])) {
+    if(obj.name.replace(/\s/g, '_') === state[1]) {
       $(document).on('tileResized', function() {
           tile.click();
       });
     }
     $(window).on('hashchange', function() {
        var state = window.location.hash.substring(2).split('/');
-       if(decodeURI(state[1]) === obj.name)
+       if(state[1] === obj.name.replace(/\s/g, '_'))
          tile.click();
     });
   });
