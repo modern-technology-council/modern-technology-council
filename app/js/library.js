@@ -222,6 +222,7 @@ function addFavorite(title, link) {
   if (!exists && link != undefined && title != undefined)
   {
     favorites.push({link: link, title: title});
+    _gaq.push(['_trackEvent', 'Favorites', title]);
     added = true;
   }
   console.log(favorites);
