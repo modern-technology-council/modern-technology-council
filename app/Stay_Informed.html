@@ -1,22 +1,14 @@
-<div class="panel">
-  <div class="panel-heading clearfix">
-    <span class="close"><button class="btn btn-default">Close</button></span>
-    <h3 class="panel-title">Mission</h3>
-    <script>
-$('.close').on('click', function() { 
-    $('.panel').fadeOut() 
-    document.location.hash='#';
-    returnMenu();
-    });
-    </script>
-  </div>
-   <p>
-  The mission of the Modern Technology (MT) Council is to bring Modern Technology to the forefront of local education, workforce, and business. We will increase public awareness and promote the same Open Standards (openness), philosophies, and culture that have revolutionized technology in the past decade. We will promote collaboration and best practices. We will lead the way in modern technology education. We will connect students to modern technologists and experienced engineers so they may contribute to projects supplied by the community and Council members. The result will be the production of top technologists from Massachusetts who remain in Massachusetts. Local businesses, organizations, and government will prosper from increased efficiency, greater visibility, and reduced costs resulting in a flourishing culture and economy.
-  </p>
-  <p>Andrew Faria - Founder and CEO iMedia Solutions, LLC</p>
-  <div class="container">
-
-<!-- Begin MailChimp Signup Form -->
+<div class="modal fade show" data-backdrop="static" id="rsvp">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Stay Informed</h3>
+        <p>45 Slocum Road, Suite 3, Dartmouth, MA 02747. 617-299-9694</p>
+      </div>
+      <div class="modal-body">
+	
+	<!-- Begin MailChimp Signup Form -->
 <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
@@ -25,7 +17,6 @@ $('.close').on('click', function() {
 </style>
 <div id="mc_embed_signup">
 <form action="http://alt236.us7.list-manage1.com/subscribe/post?u=4884342d8deb17fd65de63489&amp;id=8a29d6345d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-	<h2>Join the Mission</h2>
 <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
 <div class="mc-field-group">
 	<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
@@ -282,5 +273,90 @@ function mce_success_cb(resp){
 </script>
 <!--End mc_embed_signup-->
 
-  </div>
-</div>
+      </div>
+
+      <div class="modal-footer">
+        <p>Your contact info is 100% private</p>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+$('#rsvp').modal();
+$('#rsvp').on('hidden.bs.modal', function() {
+    $('#banner').hide();
+    $('#banner').html('');
+    document.location.hash="";
+    returnMenu();
+    });
+
+$('span').tooltip();
+
+// This turned-out a bigger mess than I anticipated.
+// It works the Agenda and RSVP Form buttons
+/*
+   $('<button class="btn btn-primary button-agenda">Agenda</button>').appendTo('.modal-header').on('click',function() {
+   $.modal = $('.modal-body');
+   $('button.button-agenda').attr('disabled','disabled');
+   $.modal.css({
+height : $($.modal).height()+'px',
+'overflow-y' : 'auto'
+});
+$('button.rsvp').hide();
+
+if(!$.rsvp){
+$.rsvp = $.modal.html();
+}
+
+if($('.button-rsvp-form').length==0){
+$('<button class="btn btn-primary button-rsvp-form">RSVP Form</button>').appendTo('.modal-header').on('click', function() {
+$.modal.html($.rsvp);
+$.modal.css('height', '');
+$('button.button-agenda').attr('disabled',false);
+$('button.rsvp').show();
+});  
+}
+
+if(!$.agenda) {
+$.get('/Agenda.html', function(data) {
+$.agenda = data;
+$.modal.html(data).css(height,'500px');
+});
+}else{
+$.modal.html($.agenda);
+}
+});
+ */
+
+//FORM SUBMIT
+$('button.rsvp').on('click', function() {
+    $.validated = true;
+    $(this).attr("disabled","disabled");
+    validate('form#rsvp_form');
+    if($.validated) {
+    $(this).text('submitting...');
+    $.rsvp = {attending:$(this).attr('data')};
+    var test = $('form#rsvp_form :input').map(function(index,el) {
+      if(el.type == 'checkbox'){
+      el.id = $(el).val();
+      value = $(el).is(':checked');
+      }else{
+      value = $(el).val();
+      }
+      return {name:el.id, type:el.type, value: value};
+      });
+    $(test).each(function(index,obj) {
+      $.rsvp[obj.name] = obj.value;
+      });
+    $.post('/api/rsvp/submit', $.rsvp, function(response) {
+      if(response == 'OK'){
+      $('button.rsvp').hide();
+      $('.modal-body').html('<h3>Thank You</h3><p>We will follow-up with you shortly</p>');
+      }
+      });
+    }else{
+      $(this).attr("disabled",false);
+    }
+});
+</script>

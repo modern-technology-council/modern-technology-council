@@ -14,7 +14,7 @@ var menu = [
   'Tech Tax',
   'Minutes',
   'Schedule',
-  'RSVP',
+  'Stay Informed',
   'Mission'];
 var resize = false;
 var resizeOveride = false;
