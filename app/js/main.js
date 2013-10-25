@@ -11,7 +11,7 @@ var menu = [
   'Modern Technology',
   'Resources',
   'Technology Councils',
-  'Tech Tax',
+  'Seminar Registration',
   'Minutes',
   'Schedule',
   'Stay Informed',
@@ -50,13 +50,10 @@ function changeState() {
     $('div#modal').hide();
     $('#banner').fadeOut();
 
+    console.log(state)
     switch(state) {
-      case 'Tech_Tax':
-        partMenu();
-        $.get('../ma-tech-tax-twitter.html', function(data) {
-          $('#modal-content').html(data);
-          $('div#modal').show(400);
-        });
+      case 'Seminar_Registration':
+        window.location = 'http://mtcouncil-free-1.eventbrite.com/'
         break;
 
       case 'Minutes':
