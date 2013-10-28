@@ -274,7 +274,7 @@ function prepFavorites() {
 function init_page() {
 
   setTimeout(function () {
-    draw_menu_circles(center_x, center_y, 175, function() {
+    draw_menu_circles(pos_x+300, pos_y+300, 175, function() {
       if(document.location.hash.length > 2) {
         setTimeout(function() {
           parted=false;
@@ -290,8 +290,14 @@ function init_page() {
   }
 
   $('<span class="left brackets">{</span>').appendTo('body').hide();
-    $('<span class="right brackets">}</right>').appendTo('body').hide();
-  $('body').append('<canvas id="myCanvas" width="' + screen_width + '" height="' + screen_height + '" />');
+    $('<span class="right brackets">}</span>').appendTo('body').hide();
+  //$('body').append('<canvas id="myCanvas" width="' + screen_width + '" height="' + screen_height + '" />');
+
+  $('body').append('<canvas id="myCanvas" width="600px" height="600px" />');
+  $('#myCanvas').css({
+    left: pos_x,
+    top: pos_y
+  });
 
 
   var c = $('#myCanvas')[0].getContext("2d");
@@ -314,8 +320,8 @@ function init_page() {
     c.stroke();
     if (mover > 35) {
       clearInterval(interval);
-      $('.left').css({left: center_x-60, top: center_y-34});
-      $('.right').css({left: center_x+50, top: center_y-34});
+      $('.left').css({left: pos_x-70+300, top: pos_y-44+300});
+      $('.right').css({left: pos_x+45+300, top: pos_y-44+300});
       $('span').fadeIn(700);
     }
   };

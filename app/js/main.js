@@ -1,10 +1,14 @@
 /*global $:false, jQuery:false, document:false, window:false */
 
 
-var screen_width = $(document).width();
-var screen_height = $(document).height();
-var center_x = screen_width / 2;
-var center_y = screen_height / 2;
+var screen_width = $(window).width();
+var screen_height = $(window).height();
+//var center_x = screen_width / 2;
+//var center_y = screen_height / 2;
+var pos_x = screen_width/2 - 300
+var pos_y = screen_height/2 - 300
+var center_x = 300;
+var center_y = 300;
 var currentState = '';
 var parted = false;
 var menu = [
@@ -17,7 +21,7 @@ var menu = [
   'Stay Informed',
   'Mission'];
 var resize = false;
-var resizeOveride = false;
+var resizeOveride = true;
 
 $(window).on('resize', function() {
   if(!resize && !resizeOveride && $(window).width() > 500) {
@@ -32,6 +36,43 @@ $(window).on('resize', function() {
     setTimeout(function() {
       $('#dialog-modal').modal('toggle'); 
     },1000);
+  }
+  else {
+    screen_width = $(window).width();
+    screen_height = $(window).height();
+    pos_x = screen_width/2 - 300
+    pos_y = screen_height/2 - 300
+    $('#myCanvas').css({
+      left: pos_x,
+      top: pos_y
+    });
+    $('.left').css({left: pos_x-70+300, top: pos_y-44+300});
+    $('.right').css({left: pos_x+45+300, top: pos_y-44+300});
+    if (!parted) {
+      redraw_menu_circles(pos_x+300, pos_y+300, 175);
+    }
+    else {
+      var headerHeight = $('#header').height() + 10;
+      var x = headerHeight;
+      var y = 2;
+      var i = 0;
+      var number_of_circles = $('.menu-circle').length
+      var step_angle = (Math.PI * 2) / number_of_circles;
+      var starting_angle = (Math.PI * 2 / 360) * 18;
+      $('.menu-circle').each(function(index, element) {
+        var angle = starting_angle + (step_angle * i);
+        var px = pos_x+300 + (Math.sin(angle) * 175);
+        var py = pos_y+300 + (Math.cos(angle) * 175);
+        jQuery.data(element, { top : py - 50, left: px - 50 });
+        $(element).css({top:x,left:y,'z-index':1});
+        x+=105;
+        if(index>2 && y === 2) {
+          y = $(window).width() - 105;
+          x = headerHeight; 
+        }
+        i++;
+      });
+    }
   }
 });
 
