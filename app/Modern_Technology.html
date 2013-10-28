@@ -2,7 +2,7 @@
 var list = [
 
 { name: "Distributed Version Control (Git)", "title":"a.k.a. Source Code Management (SCM)", "desc":"", "link":"http://github.com/", "dataPopover":"#helpGithub" },
-{ name: "Hypertext Markup Language (HTML5)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub" },
+{ name: "Hypertext Markup Language (HTML5)", "title":"", "desc":"", "link":"", "dataPopover":"#tech-tile-html" },
 { name: "Cascading Style Sheets (CSS3)", "title":"", "desc":"", "link":"" , "dataPopover":"#helpGithub" },
 { name: "Scripted Graphics &lt;canvas&gt;", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "JavaScript", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
@@ -15,7 +15,6 @@ var list = [
 { name: "Model Views Controllers (MVC)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "Application Programming Interface (API)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
-{ name: "Model Driven Views (MDV)", "title":"", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "Open Source Hardware (Arduino)", "title":"programmable single-board microcontroller", "desc":"", "link":"", "dataPopover":"#helpGithub"  },
 { name: "Ember, Angular, Backbone", "title":"MVC/MDV Frameworks", "desc":"", "link":"", "dataPopover":"#helpGithub"  }
 
@@ -40,6 +39,82 @@ var list = [
 
   <div id='helpGithub' class='popout-fill'>
     <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
+  </div>
+
+  <div id="tech-tile-html" class="popout-fill">
+    <div class="tech-overflow">
+      <p><a href="http://en.wikipedia.org/wiki/HTML#History"><span class="glyphicon glyphicon-link"></span></a> Wikipedia article on the history of HTML</p>
+      <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><span class="glyphicon glyphicon-link"></span></a> MDN (Mozilla Developer Network) page for HTML documentation</p>
+      <p><a href="http://www.w3.org/html/wg/drafts/html/master/Overview.html"><span class="glyphicon glyphicon-link"></span></a> W3C HTML5 nightly documentation</p>
+      <p>Help us with this content. <a href="https://github.com/modern-technology-council/modern-technology-council" target="_blank">Fork us on GitHub!</a></p>
+      <p>Examples of new elements in HTML5 (these may not work with all browsers):</p>
+      <ul>
+        <li>&lt;mark&gt;:  The mark tag can be used to <mark>highlight</mark> certain pieces of text</li>
+        <li>
+          <p>&lt;audio&gt;: This mark can be used to play certain audio formats</p>
+          <audio src="http://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg" controls></audio>
+        </li>
+        <li>
+          <p>&lt;video&gt;: This mark can be used to play certain video formats</p>
+          <p><video src="/media/small.ogv" controls></video></p>
+        </li>
+        <li>
+          <p>&lt;canvas&gt;: This mark is used in the programmic creation of visual graphics</p>
+          <p><button id='fractalStart'>Click to start fractal</button></p>
+          <p><canvas width='500' height='300' id='fractal'></canvas>
+            <script type='text/javascript'>
+            $('.popout #fractalStart').on('click', function(){
+            var canvas, count, draw, fractals, horizontal, interval;
+            
+             
+            canvas = $('.popout #fractal')[0];
+            fractals = [[150, 50, 200, 200]];
+            
+            horizontal = true;
+            
+            count = 0;
+            
+            interval = null;
+
+            console.log('fractal starterd');
+            console.log(canvas);
+            
+            draw = function() {
+              var ctx, fract2, x, _i, _len;
+              if (count > 6) {
+                clearInterval(interval);
+              }
+              count += 1;
+              ctx = canvas.getContext('2d');
+              ctx.clearRect(0, 0, 1000, 1000);
+              console.log(fractals);
+              fract2 = [];
+              for (_i = 0, _len = fractals.length; _i < _len; _i++) {
+                x = fractals[_i];
+                ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                ctx.fillRect(x[0], x[1], x[2], x[3]);
+                if (horizontal) {
+                  fract2.push([x[0] - x[2] / 4, x[1], x[2] / 2, x[3] / 2]);
+                  fract2.push([x[0] - x[2] / 4 + x[2] / 2, x[1], x[2] / 2, x[3] / 2]);
+                  fract2.push([x[0] + x[2] / 4, x[1] + x[3] / 2, x[2] / 2, x[3] / 2]);
+                  fract2.push([x[0] + x[2] / 4 + x[2] / 2, x[1] + x[3] / 2, x[2] / 2, x[3] / 2]);
+                } else {
+                  fract2.push([x[0], x[1] + x[3] / 4, x[2] / 2, x[3] / 2]);
+                  fract2.push([x[0], x[1] + x[3] / 4 + x[3] / 2, x[2] / 2, x[3] / 2]);
+                  fract2.push([x[0] + x[2] / 2, x[1] - x[3] / 4, x[2] / 2, x[3] / 2]);
+                  fract2.push([x[0] + x[2] / 2, x[1] - x[3] / 4 + x[3] / 2, x[2] / 2, x[3] / 2]);
+                }
+              }
+              fractals = fract2;
+              return horizontal = !horizontal;
+            };
+            
+            interval = setInterval(draw, 1000);
+            });
+            </script>
+          <p>
+      </ul>
+    </div>
   </div>
 
   <div id="tech-tile-jQuery" class="popout-fill">

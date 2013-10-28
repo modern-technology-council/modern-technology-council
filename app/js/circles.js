@@ -32,7 +32,6 @@ function draw_circles(c, x, y, set_radius) {
 
 function draw_menu_circles(x, y, set_radius, callback) {
 
-
   var number_of_circles = 8;
   var step_angle = (Math.PI * 2) / number_of_circles;
   var starting_angle = (Math.PI * 2 / 360) * 18;
@@ -55,14 +54,42 @@ function draw_menu_circles(x, y, set_radius, callback) {
 
     $('<div class="menu-circle" id="menu-'+i+'"><a href="/#/' + menu[i].replace(' ','_')+ '">'+menu[i]+'</a></div>')
       .css({
-        top: (center_y - 50) + 'px',
-        left: (center_x - 50) + 'px'})
+        top: (pos_y - 50 + 300) + 'px',
+        left: (pos_x - 50 + 300) + 'px'})
       .appendTo('body').animate({
         top: (py - 50) + 'px',
       left: (px - 50) + 'px',
       opacity: 1
       }, 1000, addMenuCircleTransition);
   }
+  if(callback){
+    callback();
+  }
+}
+
+
+function redraw_menu_circles(x, y, set_radius, callback) {
+  var number_of_circles = $('.menu-circle').length
+  var step_angle = (Math.PI * 2) / number_of_circles;
+  var starting_angle = (Math.PI * 2 / 360) * 18;
+  var i = 0
+  // centers of circles
+  $('.menu-circle').each( function(){
+
+    var angle = starting_angle + (step_angle * i);
+
+    var px = x + (Math.sin(angle) * set_radius);
+    var py = y + (Math.cos(angle) * set_radius);
+
+
+   $(this) 
+      .css({
+        top: (py - 50) + 'px',
+      left: (px - 50) + 'px',
+      opacity: 1
+      }, 1000);
+  i++;
+  });
   if(callback){
     callback();
   }
