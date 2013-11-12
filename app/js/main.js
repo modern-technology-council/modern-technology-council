@@ -14,7 +14,7 @@ var parted = false;
 var menu = [
   'Modern Technology',
   'Resources',
-  'Technology Councils',
+  'News and About',
   'Seminar Registration',
   'Minutes',
   'Schedule',
@@ -93,8 +93,12 @@ function changeState() {
 
     console.log(state)
     switch(state) {
+      case 'News_and_About':
+        window.location = 'http://news.alt236.org/';
+        break;
+      
       case 'Seminar_Registration':
-        window.location = 'http://mtcouncil-free-1.eventbrite.com/'
+        window.location = 'http://mtcouncil-free-1.eventbrite.com/';
         break;
 
       case 'Minutes':

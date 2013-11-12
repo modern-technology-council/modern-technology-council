@@ -52,7 +52,7 @@ function draw_menu_circles(x, y, set_radius, callback) {
     var py = y + (Math.cos(angle) * set_radius);
 
 
-    $('<div class="menu-circle" id="menu-'+i+'"><a href="/#/' + menu[i].replace(' ','_')+ '">'+menu[i]+'</a></div>')
+    $('<div class="menu-circle" id="menu-'+i+'"><a href="/#/' + menu[i].replace(/ /g,'_')+ '">'+menu[i]+'</a></div>')
       .css({
         top: (pos_y - 50 + 300) + 'px',
         left: (pos_x - 50 + 300) + 'px'})
